@@ -10,7 +10,6 @@ class user_id
 {
 public:
 	virtual ~user_id();
-
 	static user_id* getInstance();
 	/*生成新user id*/
 	std::string getNewUserId();

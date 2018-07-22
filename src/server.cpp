@@ -11,8 +11,9 @@
 #include <mongocxx/instance.hpp>
 /*mongodb headers end*/
 #include "user_id.h"
+#include "Database.h"
 #include "login_system.grpc.pb.h"
-
+#include <plog/Log.h> 
 using grpc::Server;
 using grpc::ServerBuilder;
 using grpc::ServerContext;
@@ -28,6 +29,12 @@ class LoginSystemServiceImpl final : public LoginSystem::Service {
     std::string S1 = request->s1();
     std::string nickname = request->nickname();
     int timestamp = request->timestamp();
+
+    std::string userId = user_id::getInstance()->getNewUserId();
+    LOGD << "getNewUserId: " << userId;
+    
+
+
 
     response->set_user_id("user_id_1");
     response->set_timestamp(1111);
@@ -66,7 +73,7 @@ void RunServer() {
   builder.RegisterService(&service);
   // Finally assemble the server.
   std::unique_ptr<Server> server(builder.BuildAndStart());
-  std::cout << "Server listening on " << server_address << std::endl;
+  LOGD << "Server listening on " << server_address << std::endl;
 
   // Wait for the server to shutdown. Note that some other thread must be
   // responsible for shutting down the server for this call to ever return.
@@ -74,13 +81,14 @@ void RunServer() {
 }
 
 int main(int argc, char** argv) {
-  mongocxx::instance inst{};
-  mongocxx::client conn{mongocxx::uri{}};
+  /*init logger*/
+  plog::init(plog::debug, "../log/server_log.txt");
+  /*init database*/
+  Database::getInstance()->setDb("mongodb://localhost:27017", "login_system");
 
-  bsoncxx::builder::stream::document document{};
+  // bsoncxx::builder::stream::document document{};
 
-  auto collection = conn["testdb"]["testcollection"];
-  document << "hello" << "world";
+  // document << "hello" << "world";
 
   // collection.insert_one(document.view());
   // auto cursor = collection.find({});

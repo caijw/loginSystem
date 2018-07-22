@@ -1,8 +1,12 @@
+mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
+current_dir := $(notdir $(patsubst %/,%,$(dir $(mkfile_path))))
+
 HOST_SYSTEM = $(shell uname | cut -f 1 -d_)
 SYSTEM ?= $(HOST_SYSTEM)
 CXX = g++
 CPPFLAGS += `pkg-config --cflags protobuf grpc libmongocxx`
-CXXFLAGS += -std=c++11
+CXXFLAGS += -std=c++11 -I ./../deps/plog/include/
+
 ifeq ($(SYSTEM),Darwin)
 LDFLAGS += -L/usr/local/lib `pkg-config --libs protobuf grpc++ grpc libmongocxx`\
            -lgrpc++_reflection\
@@ -12,6 +16,7 @@ LDFLAGS += -L/usr/local/lib `pkg-config --libs protobuf grpc++ grpc libmongocxx`
            -Wl,--no-as-needed -lgrpc++_reflection -Wl,--as-needed\
            -ldl
 endif
+INC = -I./../deps/plog/include/
 PROTOC = protoc
 GRPC_CPP_PLUGIN = grpc_cpp_plugin
 GRPC_CPP_PLUGIN_PATH ?= `which $(GRPC_CPP_PLUGIN)`
@@ -30,7 +35,7 @@ client: login_system.pb.o login_system.grpc.pb.o client.o
 	cp *.crt ../out/;					\
 	cp *.csr ../out/;					\
 	cp *.key ../out/;
-server: login_system.pb.o login_system.grpc.pb.o user_id.o server.o
+server: login_system.pb.o login_system.grpc.pb.o user_id.o Database.o server.o
 	$(CXX) $^ $(LDFLAGS) -o $@
 	@[ -d ../out ] || mkdir ../out;		\
 	cp server ../out/server;			\

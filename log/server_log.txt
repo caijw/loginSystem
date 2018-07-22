@@ -1,0 +1,12 @@
+﻿2018-07-22 21:06:35.610 DEBUG [379040] [main@78] Hello log!
+2018-07-22 21:07:45.370 DEBUG [379901] [main@78] Hello log!
+2018-07-22 21:07:45.371 ERROR [379901] [main@79] Hello log!
+2018-07-22 21:09:10.569 DEBUG [381422] [RunServer@69] Server listening on 0.0.0.0:50051
+
+2018-07-22 21:46:27.549 DEBUG [402553] [RunServer@74] Server listening on 0.0.0.0:50051
+
+2018-07-22 21:46:37.919 DEBUG [402556] [LoginSystemServiceImpl::registerAccount@33] getNewUserId: 1
+2018-07-22 21:47:02.994 DEBUG [402556] [LoginSystemServiceImpl::registerAccount@33] getNewUserId: 2
+2018-07-22 21:47:07.060 DEBUG [402556] [LoginSystemServiceImpl::registerAccount@33] getNewUserId: 3
+2018-07-22 22:54:34.322 DEBUG [453396] [RunServer@75] Server listening on 0.0.0.0:50051
+
