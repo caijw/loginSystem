@@ -1,0 +1,8 @@
+#out dir
+/out/
+#grpc code
+*.grpc.pb.h
+*.grpc.pb.cc
+#protobuf code
+*.pb.h
+*.pb.cc
