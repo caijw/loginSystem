@@ -4,18 +4,31 @@ package login_system;
 
 // The greeting service definition.
 service LoginSystem {
-  rpc registerAccount (registerRequest) returns (registerResponse) {}
+	rpc registerAccount (registerRequest) returns (registerResponse) {}
+	rpc loginAccount (loginRequest) returns (loginResponse) {}
 }
 
 message registerRequest {
-  string s1 = 1;
-  string nickname = 2;
-  int32 timestamp = 3;
+	string s1 = 1;
+	string nickname = 2;
+	int32 timestamp = 3;
+	string phone_num = 4;
 }
 
 message registerResponse {
-  string user_id = 1;
-  int32 timestamp = 2;
+	int32 ret = 1;
+	string msg = 2;
+ 	string user_id = 3;
+	int32 timestamp = 4;
 }
 
+message loginRequest {
+	string user_id = 1;
+	string enc_psw = 2;
+}
 
+message loginResponse {
+	int32 ret = 1;
+	string msg = 2;
+ 	string enc_session_ticket = 3;
+}

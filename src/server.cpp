@@ -12,6 +12,7 @@
 /*mongodb headers end*/
 #include "user_id.h"
 #include "Database.h"
+#include "util.h"
 #include "login_system.grpc.pb.h"
 #include <plog/Log.h> 
 using grpc::Server;
@@ -26,20 +27,41 @@ using login_system::LoginSystem;
 class LoginSystemServiceImpl final : public LoginSystem::Service {
   Status registerAccount(ServerContext* context, const registerRequest* request,
                   registerResponse* response) override {
-    std::string S1 = request->s1();
+    std::string s1 = request->s1();
     std::string nickname = request->nickname();
     int timestamp = request->timestamp();
 
     std::string userId = user_id::getInstance()->getNewUserId();
     LOGD << "getNewUserId: " << userId;
-    
+    mongocxx::collection user_info_collection = Database::getInstance()->getCollection("user_info");
 
+    auto doc_builder = bsoncxx::builder::stream::document{};
 
+    bsoncxx::document::view_or_value user_info_doc = doc_builder
+      << "user_id" << userId
+      << "s1" << s1
+      << "seq" << 1
+      // << bsoncxx::builder::stream::close_document
+      << bsoncxx::builder::stream::finalize;
+ 
+    bsoncxx::stdx::optional<mongocxx::result::insert_one> insert_result = user_info_collection.insert_one(user_info_doc);
 
-    response->set_user_id("user_id_1");
-    response->set_timestamp(1111);
+    if(insert_result){
+      response->set_ret(0);
+      response->set_msg("ok");
+      response->set_user_id(userId);
+      response->set_timestamp(timestamp + 1);
+      
+    }else{
+      response->set_ret(-1);
+      response->set_msg("error");
+      response->set_user_id("");
+      response->set_timestamp(timestamp + 1);
+    }
 
     return Status::OK;
+
+
   }
 };
 void read ( const std::string& filename, std::string& data ){

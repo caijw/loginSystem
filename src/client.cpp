@@ -4,13 +4,9 @@
 #include <sstream>
 #include <fstream>
 #include <grpcpp/grpcpp.h>
-
-#ifdef BAZEL_BUILD
-#include "protos/login_system.grpc.pb.h"
-#else
 #include "login_system.grpc.pb.h"
-#endif
-
+#include "util.h"
+#include <plog/Log.h> 
 using grpc::Channel;
 using grpc::ClientContext;
 using grpc::Status;
@@ -18,12 +14,9 @@ using login_system::registerRequest;
 using login_system::registerResponse;
 using login_system::LoginSystem;
 
-class RegisterClient {
+class Client {
  public:
-  RegisterClient(const std::string& cert,
-                const std::string& key,
-                const std::string& root,
-                const std::string& server)
+  Client(const std::string& root, const std::string& server)
   {
     grpc::SslCredentialsOptions opts =
     {
@@ -39,6 +32,16 @@ class RegisterClient {
   void registerAccount() {
     // Data we are sending to the server.
     registerRequest request;
+    std::string phone_num;
+    std::string password;
+    unsigned int timestamp = currentTimeSecond();
+    std::cout << "enter your phone number: ";
+    std::cin >> phone_num;
+    std::cout << "enter your password: ";
+    std::cin >> password;
+
+    LOGD << "phone_num: " << phone_num << " password: " << password << " timestamp: " << timestamp;
+
     request.set_s1("S1");
     request.set_nickname("nickname");
     request.set_timestamp(123);
@@ -55,14 +58,25 @@ class RegisterClient {
 
     // Act upon its status.
     if (status.ok()) {
-      std::cout << "registerAccount" << std::endl;
-      std::cout << "response.userId:" << response.user_id() << " response.timestamp:" << response.timestamp() << std::endl;
+      int ret = response.ret();
+      std::string msg = response.msg();
+      std::string user_id = response.user_id();
+      int timestamp = response.timestamp();
+      if(ret == 0){
+        std::cout << "registerAccount success" << std::endl;
+        std::cout << "response.userId:" <<  user_id << " response.timestamp:" << timestamp << std::endl;
+      }else{
+        std::cout << "registerAccount fail" << std::endl;
+      }
+
       return;
     } else {
-      std::cout << status.error_code() << ": " << status.error_message()
-                << std::endl;
+      std::cout << status.error_code() << ": " << status.error_message() << std::endl;
       return;
     }
+  }
+  void loginAccount(){
+
   }
  private:
   std::unique_ptr<LoginSystem::Stub> stub_;
@@ -89,20 +103,18 @@ read ( const std::string& filename, std::string& data )
 
 int main(int argc, char** argv) {
 
+  plog::init(plog::debug, "../log/client_log.txt");
+
   std::string cert;
   std::string key;
   std::string root;
   std::string server { "localhost:50051" };
 
-  read ( "client.crt", cert );
-  read ( "client.key", key );
   read ( "ca.crt", root );
 
+  Client client (root, server);
 
-
-  RegisterClient registerClient ( server, key, root, server );
-
-  registerClient.registerAccount();
+  
 
   int operation = 0;
   std::cout << "input your operation type, 1:[register] 2:[login] 0:[exit]: ";
@@ -110,9 +122,11 @@ int main(int argc, char** argv) {
   switch(operation){
     case 1:
       std::cout << "register operation" << std::endl;
+      client.registerAccount();
       break;
     case 2:
       std::cout << "login operation" << std::endl;
+      client.loginAccount();
       break;
     case 0:
       std::cout << "exit operation" << std::endl;
