@@ -6,3 +6,5 @@
 #protobuf code
 *.pb.h
 *.pb.cc
+#.o file
+*.o
