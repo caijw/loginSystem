@@ -5,3 +5,5 @@ out/*
 *.pb.cc
 #.o file
 *.o
+#log file
+log/*
