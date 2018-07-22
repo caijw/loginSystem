@@ -1,9 +1,6 @@
 #out dir
 /out/
-#grpc code
-*.grpc.pb.h
-*.grpc.pb.cc
-#protobuf code
+#grpc and protobuf code
 *.pb.h
 *.pb.cc
 #.o file
