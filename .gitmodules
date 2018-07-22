@@ -7,3 +7,6 @@
 [submodule "deps/cryptopp"]
 	path = deps/cryptopp
 	url = git@github.com:weidai11/cryptopp.git
+[submodule "deps/plog"]
+	path = deps/plog
+	url = git@github.com:SergiusTheBest/plog.git
