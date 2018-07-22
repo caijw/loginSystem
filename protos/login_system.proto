@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package login_system;
+
+// The greeting service definition.
+service LoginSystem {
+  rpc registerAccount (registerRequest) returns (registerResponse) {}
+}
+
+message registerRequest {
+  string s1 = 1;
+  string nickname = 2;
+  int32 timestamp = 3;
+}
+
+message registerResponse {
+  string user_id = 1;
+  int32 timestamp = 2;
+}
+
+
