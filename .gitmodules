@@ -1,0 +1,9 @@
+[submodule "deps/djinni"]
+	path = deps/djinni
+	url = git@github.com:dropbox/djinni.git
+[submodule "deps/grpc"]
+	path = deps/grpc
+	url = git@github.com:grpc/grpc.git
+[submodule "deps/cryptopp"]
+	path = deps/cryptopp
+	url = git@github.com:weidai11/cryptopp.git
