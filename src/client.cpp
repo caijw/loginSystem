@@ -13,7 +13,11 @@ using grpc::ClientContext;
 using grpc::Status;
 using login_system::registerRequest;
 using login_system::registerResponse;
+using login_system::loginRequest;
+using login_system::loginResponse;
 using login_system::LoginSystem;
+
+std::string global_ST;
 
 class Client {
  public:
@@ -33,19 +37,22 @@ class Client {
   void registerAccount() {
     // Data we are sending to the server.
     registerRequest request;
+    std::string nickname;
     std::string phone_num;
     std::string password;
-    unsigned int timestamp = currentTimeSecond();
+
+    std::cout << "enter your phone nickname: ";
+    std::cin >> nickname;
     std::cout << "enter your phone number: ";
     std::cin >> phone_num;
     std::cout << "enter your password: ";
     std::cin >> password;
 
-    LOGD << "phone_num: " << phone_num << " password: " << password << " timestamp: " << timestamp;
+    std::string H1 = md5Enc(password);
 
-    request.set_s1("S1");
-    request.set_nickname("nickname");
-    request.set_timestamp(timestamp);
+    request.set_h1(H1);
+    request.set_nickname(nickname);
+    request.set_phone_num(phone_num);
 
     // Container for the data we expect from the server.
     registerResponse response;
@@ -62,12 +69,11 @@ class Client {
       int ret = response.ret();
       std::string msg = response.msg();
       std::string user_id = response.user_id();
-      unsigned int timestamp = response.timestamp();
       if(ret == 0){
-        std::cout << "registerAccount success" << std::endl;
-        std::cout << "response.userId:" <<  user_id << " response.timestamp:" << timestamp << std::endl;
+        std::cout << "register account success" << std::endl;
+        std::cout << "response.userId:" <<  user_id << std::endl;
       }else{
-        std::cout << "registerAccount fail" << std::endl;
+        std::cout << "register account fail" << std::endl;
       }
 
       return;
@@ -77,29 +83,54 @@ class Client {
     }
   }
   void loginAccount(){
+    loginRequest request;
+    std::string user_id;
+    std::string password;
 
+    std::cout << "enter your phone userId: ";
+    std::cin >> user_id;
+    std::cout << "enter your password: ";
+    std::cin >> password;
+
+    std::string H1 = md5Enc(password);
+    std::string S1 = md5Enc(password + user_id);
+
+    request.set_user_id(user_id);
+    request.set_s1(S1);
+
+    // Container for the data we expect from the server.
+    loginResponse response;
+
+    // Context for the client. It could be used to convey extra information to
+    // the server and/or tweak certain RPC behaviors.
+    ClientContext context;
+
+    // The actual RPC.
+    Status status = stub_->loginAccount(&context, request, &response);
+
+    // Act upon its status.
+    if (status.ok()) {
+      int ret = response.ret();
+      std::string msg = response.msg();
+      if(ret == 0){
+        std::string ST = AESDec(response.st(), S1);
+        global_ST = ST;
+        std::cout << "login account success" << std::endl;
+        std::cout << "response.st:" <<  user_id << std::endl;
+      }else{
+        std::cout << "login account fail" << std::endl;
+      }
+
+      return;
+    } else {
+      std::cout << status.error_code() << ": " << status.error_message() << std::endl;
+      return;
+    }
   }
  private:
   std::unique_ptr<LoginSystem::Stub> stub_;
 };
 
-void
-read ( const std::string& filename, std::string& data )
-{
-  std::ifstream file ( filename.c_str (), std::ios::in );
-
-  if ( file.is_open () )
-  {
-    std::stringstream ss;
-    ss << file.rdbuf ();
-
-    file.close ();
-
-    data = ss.str ();
-  }
-
-  return;
-}
 
 
 int main(int argc, char** argv) {
@@ -111,9 +142,7 @@ int main(int argc, char** argv) {
   std::string root;
   std::string server { "localhost:50051" };
 
-  read ( "ca.crt", root );
-
-  LOGD << getMd5("hello world");
+  readFile( "ca.crt", root );
 
   Client client (root, server);
 

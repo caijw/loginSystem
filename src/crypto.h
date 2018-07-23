@@ -2,23 +2,21 @@
 #define CRYPTO_H
 #define CRYPTOPP_ENABLE_NAMESPACE_WEAK 1
 #include <string>
-#include <md5.h>
-#include <hex.h>
 
-static std::string getMd5(std::string message){
-	CryptoPP::byte digest[ CryptoPP::Weak::MD5::DIGESTSIZE ];
+static std::string md5Enc(std::string message){
+	/*todo: MD5 enc*/
+	std::string res = "01234567890123456789012345678901";
+	return res;
+}
 
-	CryptoPP::Weak::MD5 hash;
-	hash.CalculateDigest( digest, (const CryptoPP::byte*)message.c_str(), message.length() );
+static std::string AESEnc(std::string message, std::string key){
+	/*todo*/
+	return message;
+}
 
-	CryptoPP::HexEncoder encoder;
-	std::string output;
-
-	encoder.Attach( new CryptoPP::StringSink( output ) );
-	encoder.Put( digest, sizeof(digest) );
-	encoder.MessageEnd();
-
-	return output;
+static std::string AESDec(std::string message, std::string key){
+	/*todo*/
+	return message;
 }
 
 #endif

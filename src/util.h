@@ -18,4 +18,16 @@ static long long currentTimeMillis() {
 static unsigned int currentTimeSecond() {
     return currentTimeMillis() / 1000;
 }
+
+void readFile ( const std::string& filename, std::string& data ){
+  std::ifstream file ( filename.c_str (), std::ios::in );
+  if (file.is_open ()){
+    std::stringstream ss;
+    ss << file.rdbuf ();
+    file.close ();
+    data = ss.str ();
+  }
+  return;
+}
+
 #endif
