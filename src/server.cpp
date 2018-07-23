@@ -13,6 +13,7 @@
 #include "user_id.h"
 #include "Database.h"
 #include "util.h"
+#include "crypto.h"
 #include "login_system.grpc.pb.h"
 #include <plog/Log.h> 
 using grpc::Server;
@@ -29,7 +30,8 @@ class LoginSystemServiceImpl final : public LoginSystem::Service {
                   registerResponse* response) override {
     std::string s1 = request->s1();
     std::string nickname = request->nickname();
-    int timestamp = request->timestamp();
+    unsigned int timestamp = request->timestamp();
+
 
     std::string userId = user_id::getInstance()->getNewUserId();
     LOGD << "getNewUserId: " << userId;

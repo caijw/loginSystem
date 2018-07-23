@@ -18,5 +18,4 @@ static long long currentTimeMillis() {
 static unsigned int currentTimeSecond() {
     return currentTimeMillis() / 1000;
 }
-
 #endif

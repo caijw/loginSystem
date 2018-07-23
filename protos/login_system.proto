@@ -11,7 +11,7 @@ service LoginSystem {
 message registerRequest {
 	string s1 = 1;
 	string nickname = 2;
-	int32 timestamp = 3;
+	uint32 timestamp = 3;
 	string phone_num = 4;
 }
 
@@ -19,7 +19,7 @@ message registerResponse {
 	int32 ret = 1;
 	string msg = 2;
  	string user_id = 3;
-	int32 timestamp = 4;
+	uint32 timestamp = 4;
 }
 
 message loginRequest {

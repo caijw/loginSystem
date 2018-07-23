@@ -10,3 +10,6 @@
 [submodule "deps/plog"]
 	path = deps/plog
 	url = git@github.com:SergiusTheBest/plog.git
+[submodule "botan"]
+	path = botan
+	url = git@github.com:randombit/botan.git

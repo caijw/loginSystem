@@ -6,6 +6,7 @@
 #include <grpcpp/grpcpp.h>
 #include "login_system.grpc.pb.h"
 #include "util.h"
+#include "crypto.h"
 #include <plog/Log.h> 
 using grpc::Channel;
 using grpc::ClientContext;
@@ -44,7 +45,7 @@ class Client {
 
     request.set_s1("S1");
     request.set_nickname("nickname");
-    request.set_timestamp(123);
+    request.set_timestamp(timestamp);
 
     // Container for the data we expect from the server.
     registerResponse response;
@@ -61,7 +62,7 @@ class Client {
       int ret = response.ret();
       std::string msg = response.msg();
       std::string user_id = response.user_id();
-      int timestamp = response.timestamp();
+      unsigned int timestamp = response.timestamp();
       if(ret == 0){
         std::cout << "registerAccount success" << std::endl;
         std::cout << "response.userId:" <<  user_id << " response.timestamp:" << timestamp << std::endl;
@@ -111,6 +112,8 @@ int main(int argc, char** argv) {
   std::string server { "localhost:50051" };
 
   read ( "ca.crt", root );
+
+  LOGD << getMd5("hello world");
 
   Client client (root, server);
 

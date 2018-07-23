@@ -5,7 +5,7 @@ HOST_SYSTEM = $(shell uname | cut -f 1 -d_)
 SYSTEM ?= $(HOST_SYSTEM)
 CXX = g++
 CPPFLAGS += `pkg-config --cflags protobuf grpc libmongocxx`
-CXXFLAGS += -std=c++11 -I ./../deps/plog/include/
+CXXFLAGS += -std=c++11 -I./../deps/plog/include/ -I./../deps/cryptopp/
 
 ifeq ($(SYSTEM),Darwin)
 LDFLAGS += -L/usr/local/lib `pkg-config --libs protobuf grpc++ grpc libmongocxx`\
@@ -16,7 +16,7 @@ LDFLAGS += -L/usr/local/lib `pkg-config --libs protobuf grpc++ grpc libmongocxx`
            -Wl,--no-as-needed -lgrpc++_reflection -Wl,--as-needed\
            -ldl
 endif
-INC = -I./../deps/plog/include/
+INC = -I./../deps/plog/include/ -I./../deps/cryptopp/
 PROTOC = protoc
 GRPC_CPP_PLUGIN = grpc_cpp_plugin
 GRPC_CPP_PLUGIN_PATH ?= `which $(GRPC_CPP_PLUGIN)`
