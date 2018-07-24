@@ -25,7 +25,7 @@ message registerResponse {
 
 message loginRequest {
 	string user_id = 1;
-	string s1 = 2;
+	string data = 2;
 }
 message loginResponse {
 	int32 ret = 1;

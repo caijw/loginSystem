@@ -86,10 +86,13 @@ class LoginSystemServiceImpl final : public LoginSystem::Service {
   }
   Status loginAccount(ServerContext* context, const loginRequest* request,
                   loginResponse* response) override{
-    std::string S1 = request->s1();
+    std::string data = request->data();
     std::string user_id = request->user_id();
-
     LOGD << "login account user_id: " << user_id;
+
+
+    std::string data_user_id = data.substr(0, 10);
+    std::string data_timestamp = data.substr(0, 10);
 
     auto user_info_collection = Database::getInstance()->getCollection("user_info");
     auto query = document{}
@@ -101,45 +104,62 @@ class LoginSystemServiceImpl final : public LoginSystem::Service {
       auto iter_s1 = find_view.find("s1");
       auto iter_seq = find_view.find("seq");
       std::string S1(iter_s1->get_utf8().value);
-      LOGD << "cur seq:" << iter_seq->get_int32().value;
-      int seq = iter_seq->get_int32().value;
-      LOGD << "login seq: " << seq;
-      std::string tmp_user_id = user_id;
-      std::string timestamp = std::to_string(currentTimeSecond());
-      std::string nextSeq = std::to_string(seq + 1);
-      /*fixed length*/
-      for(decltype(user_id.size()) i = 0; i < (10 - user_id.size()); ++i){
-        tmp_user_id = "x" + tmp_user_id;
-      }
-      /*fixed length*/
-      for(decltype(timestamp.size()) i = 0; i < (10 - timestamp.size()); ++i){
-        timestamp = "x" + timestamp;
-      }
-      /*fixed length*/
-      for(decltype(nextSeq.size()) i = 0; i < (5 - nextSeq.size()); ++i){
-        nextSeq = "x" + nextSeq;
-      }
-      std::string ST = AESEnc(tmp_user_id + timestamp + nextSeq, K_AS_SS);
 
-      auto query = document{}
-        << "user_id" << user_id
-        << finalize;
-      auto update = document{}
-        << "$set"
-        << open_document
-        << "seq" << (seq + 1)
-        << close_document
-        << finalize;
-      auto update_ret = user_info_collection.update_one(query.view(), update.view());
-      if(update_ret && update_ret->modified_count() == 1){
-        response->set_ret(0);
-        response->set_msg("login success");
-        response->set_st(ST);
-      }else{
-        response->set_ret(-4);
-        response->set_msg("error, update seq");
+      /*verify req data*/
+      data = AESDec(data, S1);
+      size_t tmp = 0;
+      tmp = data_user_id.find_first_not_of('x', 0);
+      data_user_id = data_user_id.substr(tmp, data_user_id.size() - tmp);
+      tmp = data_timestamp.find_first_not_of('x', 0);
+      data_timestamp = data_timestamp.substr(tmp, data_timestamp.size() - tmp);
+      if(user_id != data_user_id){
+        response->set_ret(-7);
+        response->set_msg("error");
         response->set_st("");
+      }else{
+        LOGD << "cur seq:" << iter_seq->get_int32().value;
+        int seq = iter_seq->get_int32().value;
+        LOGD << "login seq: " << seq;
+        std::string tmp_user_id = user_id;
+        std::string timestamp = std::to_string(currentTimeSecond());
+        std::string nextSeq = std::to_string(seq + 1);
+        /*fixed length*/
+        for(decltype(user_id.size()) i = 0; i < (10 - user_id.size()); ++i){
+          tmp_user_id = "x" + tmp_user_id;
+        }
+        /*fixed length*/
+        for(decltype(timestamp.size()) i = 0; i < (10 - timestamp.size()); ++i){
+          timestamp = "x" + timestamp;
+        }
+        /*fixed length*/
+        for(decltype(nextSeq.size()) i = 0; i < (5 - nextSeq.size()); ++i){
+          nextSeq = "x" + nextSeq;
+        }
+        std::string ST = AESEnc(tmp_user_id + timestamp + nextSeq, K_AS_SS);
+
+        auto query = document{}
+          << "user_id" << user_id
+          << finalize;
+        auto update = document{}
+          << "$set"
+          << open_document
+          << "seq" << (seq + 1)
+          << close_document
+          << finalize;
+        auto update_ret = user_info_collection.update_one(query.view(), update.view());
+        if(update_ret && update_ret->modified_count() == 1){
+          response->set_ret(0);
+          response->set_msg("login success");
+          response->set_st(ST);
+        }else{
+          response->set_ret(-4);
+          response->set_msg("error, update seq");
+          response->set_st("");
+        }
       }
+
+
+
     }else{
       response->set_ret(-3);
       response->set_msg("error, account not exist.");
@@ -227,7 +247,7 @@ void RunServer() {
 
 int main(int argc, char** argv) {
   /*init logger*/
-  plog::init(plog::debug, "../log/server_log.txt");
+  plog::init(plog::debug, "./server_log.log");
   /*init database*/
   Database::getInstance()->setDb("mongodb://localhost:27017", "login_system");
 

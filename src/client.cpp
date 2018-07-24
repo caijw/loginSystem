@@ -95,8 +95,21 @@ class Client {
     std::string H1 = md5Enc(password);
     std::string S1 = md5Enc(password + user_id);
 
+    std::string tmp_user_id = user_id;
+    std::string timestamp = std::to_string(currentTimeSecond());
+    /*fixed length*/
+    for(decltype(user_id.size()) i = 0; i < (10 - user_id.size()); ++i){
+      tmp_user_id = "x" + tmp_user_id;
+    }
+    /*fixed length*/
+    for(decltype(timestamp.size()) i = 0; i < (10 - timestamp.size()); ++i){
+      timestamp = "x" + timestamp;
+    }
+    std::string data = AESEnc(tmp_user_id + timestamp, S1);
+
+
     request.set_user_id(user_id);
-    request.set_s1(S1);
+    request.set_data(data);
 
     // Container for the data we expect from the server.
     loginResponse response;
@@ -135,7 +148,7 @@ class Client {
 
 int main(int argc, char** argv) {
 
-  plog::init(plog::debug, "../log/client_log.txt");
+  plog::init(plog::debug, "./client_log.log");
 
   std::string cert;
   std::string key;
