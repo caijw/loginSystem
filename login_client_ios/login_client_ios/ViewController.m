@@ -8,6 +8,7 @@
 #import "ViewController.h"
 #import "LoginVCViewController.h"
 #import "RegisterVCViewController.h"
+#import "HWHelloWorld.h"
 
 @interface ViewController () <XLBasePageControllerDelegate,XLBasePageControllerDataSource>
 
@@ -16,7 +17,9 @@
 
 @end
 
-@implementation ViewController
+@implementation ViewController{
+    HWHelloWorld *_cppApi;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -37,6 +40,13 @@
     self.selectIndex = 0;//默认选中第几页
     
     [self reloadScrollPage];
+    
+    _cppApi = [HWHelloWorld create];
+    NSString *str = [_cppApi getHelloWorld];
+    
+    NSLog(@"cpp out put: %@", str);
+    
+    
 }
 
 -(NSInteger)numberViewControllersInViewPager:(XLBasePageController *)viewPager
