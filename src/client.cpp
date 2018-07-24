@@ -41,7 +41,7 @@ class Client {
     std::string phone_num;
     std::string password;
 
-    std::cout << "enter your phone nickname: ";
+    std::cout << "enter your nickname: ";
     std::cin >> nickname;
     std::cout << "enter your phone number: ";
     std::cin >> phone_num;
@@ -87,7 +87,7 @@ class Client {
     std::string user_id;
     std::string password;
 
-    std::cout << "enter your phone userId: ";
+    std::cout << "enter your userId: ";
     std::cin >> user_id;
     std::cout << "enter your password: ";
     std::cin >> password;
