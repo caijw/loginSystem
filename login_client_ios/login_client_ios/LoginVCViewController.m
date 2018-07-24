@@ -47,6 +47,8 @@
     self.confirm_btn.backgroundColor = [UIColor lightGrayColor];
     self.confirm_btn.frame = CGRectMake(80, 300, 100, 30);
     
+    [self.confirm_btn addTarget:self action:@selector(goLogin:) forControlEvents:UIControlEventTouchUpInside];
+
     
     [self.view addSubview:self.uid_label];
     [self.view addSubview:self.uid_text];
@@ -61,6 +63,9 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)goLogin:(UIButton*)sender{
+    NSLog(@"click do goLogin");
+}
 /*
  #pragma mark - Navigation
  

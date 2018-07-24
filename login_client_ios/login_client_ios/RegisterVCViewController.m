@@ -56,7 +56,7 @@
     [self.confirm_btn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     self.confirm_btn.backgroundColor = [UIColor lightGrayColor];
     self.confirm_btn.frame = CGRectMake(80, 400, 100, 30);
-    
+    [self.confirm_btn addTarget:self action:@selector(goRegister:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:self.nickname_label];
     [self.view addSubview:self.nickname_text];
@@ -71,6 +71,10 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)goRegister:(UIButton*)sender{
+    NSLog(@"click do goRegister");
 }
 
 /*
