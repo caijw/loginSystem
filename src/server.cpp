@@ -222,6 +222,7 @@ void RunServer() {
   std::string key;
   std::string cert;
   std::string root;
+  /*https://github.com/grpc/grpc/issues/9538*/ 
   readFile( "server.crt", cert );
   readFile( "server.key", key );
   readFile( "ca.crt", root );
