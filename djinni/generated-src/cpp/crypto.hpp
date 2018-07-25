@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <cstdint>
 #include <memory>
 #include <string>
 
@@ -15,6 +16,16 @@ public:
     static std::shared_ptr<Crypto> create();
 
     virtual std::string get_hello_world() = 0;
+
+    virtual std::string argon2(const std::string & message, int32_t t_cost, int32_t m_cost, int32_t parallelism, const std::string & salt) = 0;
+
+    virtual std::string AESEnc(const std::string & message, const std::string & key) = 0;
+
+    virtual std::string AESDec(const std::string & message, const std::string & key) = 0;
+
+    virtual std::string stringWithFixedLength(const std::string & origin, int32_t length, const std::string & padding) = 0;
+
+    virtual std::string deStringWithFixedLength(const std::string & origin, const std::string & padding) = 0;
 };
 
 }  // namespace crypto

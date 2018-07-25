@@ -4,9 +4,9 @@
 #include <sstream>
 #include <fstream>
 #include <grpcpp/grpcpp.h>
+#include "crypto_impl.hpp"
 #include "login_system.grpc.pb.h"
 #include "util.h"
-#include "crypto.h"
 #include <plog/Log.h> 
 using grpc::Channel;
 using grpc::ClientContext;
@@ -75,6 +75,7 @@ class Client {
   // from the server.
   void registerAccount() {
     // Data we are sending to the server.
+    crypto::CryptoImpl crypto_util;
     registerRequest request;
     std::string nickname;
     std::string phone_num;
@@ -87,9 +88,15 @@ class Client {
     std::cout << "enter your password: ";
     std::cin >> password;
 
-    std::string H1 = md5Enc(password);
+    int tCost = 100;
+    int mCost = 100;
+    int parallelism = 100;
+    std::string salt = "";
+    std::string hash = crypto_util.argon2(password, tCost, mCost, parallelism, salt);
 
-    request.set_h1(H1);
+
+    request.set_hash(hash);
+    request.set_salt(salt);
     request.set_nickname(nickname);
     request.set_phone_num(phone_num);
 
@@ -122,6 +129,7 @@ class Client {
     }
   }
   void loginAccount(){
+    crypto::CryptoImpl crypto_util;
     loginRequest request;
     std::string user_id;
     std::string password;
@@ -131,20 +139,17 @@ class Client {
     std::cout << "enter your password: ";
     std::cin >> password;
 
-    std::string H1 = md5Enc(password);
-    std::string S1 = md5Enc(password + user_id);
+    int tCost = 100;
+    int mCost = 100;
+    int parallelism = 100;
+    std::string salt = "";
+    std::string hash = crypto_util.argon2(password, tCost, mCost, parallelism, salt);
 
-    std::string tmp_user_id = user_id;
+    std::string tmp_user_id = crypto_util.stringWithFixedLength(user_id, 10, "x");
     std::string timestamp = std::to_string(currentTimeSecond());
-    /*fixed length*/
-    for(decltype(user_id.size()) i = 0; i < (10 - user_id.size()); ++i){
-      tmp_user_id = "x" + tmp_user_id;
-    }
-    /*fixed length*/
-    for(decltype(timestamp.size()) i = 0; i < (10 - timestamp.size()); ++i){
-      timestamp = "x" + timestamp;
-    }
-    std::string data = AESEnc(tmp_user_id + timestamp, S1);
+    timestamp = crypto_util.stringWithFixedLength(timestamp, 10, "x");
+
+    std::string data = crypto_util.AESEnc(tmp_user_id + timestamp, hash);
 
 
     request.set_user_id(user_id);
@@ -165,7 +170,7 @@ class Client {
       int ret = response.ret();
       std::string msg = response.msg();
       if(ret == 0){
-        std::string ST = AESDec(response.st(), S1);
+        std::string ST = crypto_util.AESDec(response.st(), hash);
         global_ST = ST;
         std::cout << "login account success" << std::endl;
         std::cout << "response.st:" <<  user_id << std::endl;

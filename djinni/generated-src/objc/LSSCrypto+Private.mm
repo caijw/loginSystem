@@ -44,6 +44,59 @@ static_assert(__has_feature(objc_arc), "Djinni requires ARC to be enabled for th
     } DJINNI_TRANSLATE_EXCEPTIONS()
 }
 
+- (nonnull NSString *)argon2:(nonnull NSString *)message
+                       tCost:(int32_t)tCost
+                       mCost:(int32_t)mCost
+                 parallelism:(int32_t)parallelism
+                        salt:(nonnull NSString *)salt {
+    try {
+        auto objcpp_result_ = _cppRefHandle.get()->argon2(::djinni::String::toCpp(message),
+                                                          ::djinni::I32::toCpp(tCost),
+                                                          ::djinni::I32::toCpp(mCost),
+                                                          ::djinni::I32::toCpp(parallelism),
+                                                          ::djinni::String::toCpp(salt));
+        return ::djinni::String::fromCpp(objcpp_result_);
+    } DJINNI_TRANSLATE_EXCEPTIONS()
+}
+
+- (nonnull NSString *)AESEnc:(nonnull NSString *)message
+                         key:(nonnull NSString *)key {
+    try {
+        auto objcpp_result_ = _cppRefHandle.get()->AESEnc(::djinni::String::toCpp(message),
+                                                          ::djinni::String::toCpp(key));
+        return ::djinni::String::fromCpp(objcpp_result_);
+    } DJINNI_TRANSLATE_EXCEPTIONS()
+}
+
+- (nonnull NSString *)AESDec:(nonnull NSString *)message
+                         key:(nonnull NSString *)key {
+    try {
+        auto objcpp_result_ = _cppRefHandle.get()->AESDec(::djinni::String::toCpp(message),
+                                                          ::djinni::String::toCpp(key));
+        return ::djinni::String::fromCpp(objcpp_result_);
+    } DJINNI_TRANSLATE_EXCEPTIONS()
+}
+
+- (nonnull NSString *)stringWithFixedLength:(nonnull NSString *)origin
+                                     length:(int32_t)length
+                                    padding:(nonnull NSString *)padding {
+    try {
+        auto objcpp_result_ = _cppRefHandle.get()->stringWithFixedLength(::djinni::String::toCpp(origin),
+                                                                         ::djinni::I32::toCpp(length),
+                                                                         ::djinni::String::toCpp(padding));
+        return ::djinni::String::fromCpp(objcpp_result_);
+    } DJINNI_TRANSLATE_EXCEPTIONS()
+}
+
+- (nonnull NSString *)deStringWithFixedLength:(nonnull NSString *)origin
+                                      padding:(nonnull NSString *)padding {
+    try {
+        auto objcpp_result_ = _cppRefHandle.get()->deStringWithFixedLength(::djinni::String::toCpp(origin),
+                                                                           ::djinni::String::toCpp(padding));
+        return ::djinni::String::fromCpp(objcpp_result_);
+    } DJINNI_TRANSLATE_EXCEPTIONS()
+}
+
 namespace djinni_generated {
 
 auto Crypto::toCpp(ObjcType objc) -> CppType

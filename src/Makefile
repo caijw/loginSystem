@@ -5,7 +5,7 @@ HOST_SYSTEM = $(shell uname | cut -f 1 -d_)
 SYSTEM ?= $(HOST_SYSTEM)
 CXX = g++
 CPPFLAGS += `pkg-config --cflags protobuf grpc libmongocxx`
-CXXFLAGS += -std=c++11 -I./../deps/plog/include/ -I./../deps/cryptopp/
+CXXFLAGS += -std=c++11 -I./../deps/plog/include/ -I./../deps/cryptopp/ -I./../djinni/generated-src/cpp
 
 ifeq ($(SYSTEM),Darwin)
 LDFLAGS += -L/usr/local/lib `pkg-config --libs protobuf grpc++ grpc libmongocxx`\
@@ -27,7 +27,7 @@ vpath %.proto $(PROTOS_PATH)
 
 all: client server
 
-client: login_system.pb.o login_system.grpc.pb.o client.o
+client: login_system.pb.o login_system.grpc.pb.o crypto_impl.o client.o
 	$(CXX) $^ $(LDFLAGS) -o $@
 	@[ -d ../out ] || mkdir ../out; 	\
 	cp client ../out/client; 			\
@@ -35,7 +35,7 @@ client: login_system.pb.o login_system.grpc.pb.o client.o
 	cp *.crt ../out/;					\
 	cp *.csr ../out/;					\
 	cp *.key ../out/;
-server: login_system.pb.o login_system.grpc.pb.o user_id.o Database.o server.o
+server: login_system.pb.o login_system.grpc.pb.o user_id.o Database.o crypto_impl.o server.o
 	$(CXX) $^ $(LDFLAGS) -o $@
 	@[ -d ../out ] || mkdir ../out;		\
 	cp server ../out/server;			\

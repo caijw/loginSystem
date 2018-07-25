@@ -14,7 +14,7 @@
 
 static NSString * const kHostAddress = @"localhost:50051";
 LSSLoginSystem *loginClient;
-
+NSString *ST;
 int main(int argc, char * argv[]) {
     @autoreleasepool {
         
@@ -22,6 +22,7 @@ int main(int argc, char * argv[]) {
         [GRPCCall setUserAgentPrefix:@"LoginSystem/1.0" forHost:kHostAddress];
         
         loginClient = [[LSSLoginSystem alloc] initWithHost:kHostAddress];
+        
         
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
     }

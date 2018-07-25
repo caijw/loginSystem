@@ -13,7 +13,7 @@
 #include "user_id.h"
 #include "Database.h"
 #include "util.h"
-#include "crypto.h"
+#include "crypto_impl.hpp"
 #include "login_system.grpc.pb.h"
 #include <plog/Log.h> 
 using grpc::Server;
@@ -52,27 +52,26 @@ class LoginSystemServiceImpl final : public LoginSystem::Service {
     response->set_helloserver("from server");
     return Status::OK;
   }
-  
+
   Status registerAccount(ServerContext* context, const registerRequest* request,
                   registerResponse* response) override {
     LOGD << "registerAccount";
-    std::string H1 = request->h1();
+    crypto::CryptoImpl crypto;
+    std::string hash = request->hash();
     std::string nickname = request->nickname();
     std::string phone_num = request->phone_num();
-    std::cout << "H1: " << H1;
     int ret;
     std::string userId;
     ret = user_id::getInstance()->getNewUserId(userId);
     LOGD << "user_id::getInstance ret:" << ret;
     if(ret == 0){
       LOGD << "getNewUserId: " << userId;
-      std::string S1 = md5Enc(H1 + userId);
       auto user_info_collection = Database::getInstance()->getCollection("user_info");
       auto doc_builder = bsoncxx::builder::stream::document{};
 
       bsoncxx::document::view_or_value user_info_doc = doc_builder
         << "user_id" << userId
-        << "s1" << S1
+        << "hash" << hash
         << "phone_num" << phone_num
         << "seq" << 1
         // << bsoncxx::builder::stream::close_document
@@ -99,10 +98,10 @@ class LoginSystemServiceImpl final : public LoginSystem::Service {
   }
   Status loginAccount(ServerContext* context, const loginRequest* request,
                   loginResponse* response) override{
+    crypto::CryptoImpl crypto;
     std::string data = request->data();
     std::string user_id = request->user_id();
     LOGD << "login account user_id: " << user_id;
-
 
     std::string data_user_id = data.substr(0, 10);
     std::string data_timestamp = data.substr(0, 10);
@@ -114,12 +113,12 @@ class LoginSystemServiceImpl final : public LoginSystem::Service {
     auto find_ret = user_info_collection.find_one(query.view());
     if(find_ret){
       auto find_view = find_ret->view();
-      auto iter_s1 = find_view.find("s1");
+      auto iter_hash = find_view.find("hash");
       auto iter_seq = find_view.find("seq");
-      std::string S1(iter_s1->get_utf8().value);
+      std::string hash(iter_hash->get_utf8().value);
 
       /*verify req data*/
-      data = AESDec(data, S1);
+      data = crypto.AESDec(data, hash);
       size_t tmp = 0;
       tmp = data_user_id.find_first_not_of('x', 0);
       data_user_id = data_user_id.substr(tmp, data_user_id.size() - tmp);
@@ -148,7 +147,7 @@ class LoginSystemServiceImpl final : public LoginSystem::Service {
         for(decltype(nextSeq.size()) i = 0; i < (5 - nextSeq.size()); ++i){
           nextSeq = "x" + nextSeq;
         }
-        std::string ST = AESEnc(tmp_user_id + timestamp + nextSeq, K_AS_SS);
+        std::string ST = crypto.AESEnc(tmp_user_id + timestamp + nextSeq, K_AS_SS);
 
         auto query = document{}
           << "user_id" << user_id
@@ -182,20 +181,21 @@ class LoginSystemServiceImpl final : public LoginSystem::Service {
   }
   Status verifyST(ServerContext* context, const verifySTRequest* request,
                   verifySTResponse* response) override{
+    crypto::CryptoImpl crypto;
     std::string user_id = request->user_id();
     std::string ST = request->st();
     LOGD << "user_id: " << user_id;
-    ST = AESDec(ST, K_AS_SS);
+    ST = crypto.AESDec(ST, K_AS_SS);
     std::string ST_user_id = ST.substr(0, 10);
     std::string ST_timestamp = ST.substr(0, 10);
     std::string ST_seq = ST.substr(0, 5);
-    size_t tmp = 0;
-    tmp = ST_user_id.find_first_not_of('x', 0);
-    ST_user_id = ST_user_id.substr(tmp, ST_user_id.size() - tmp);
-    tmp = ST_timestamp.find_first_not_of('x', 0);
-    ST_timestamp = ST_timestamp.substr(tmp, ST_timestamp.size() - tmp);
-    tmp = ST_seq.find_first_not_of('x', 0);
-    ST_seq = ST_seq.substr(tmp, ST_seq.size() - tmp);
+
+    ST_user_id = crypto.deStringWithFixedLength(ST_user_id, "x");
+
+    ST_timestamp = crypto.deStringWithFixedLength(ST_timestamp, "x");
+
+    ST_seq = crypto.deStringWithFixedLength(ST_seq, "x");
+
     int seq = std::stoi(ST_seq);
     LOGD << "ST_user_id: " << ST_user_id
       << " ST_timestamp: " << ST_timestamp

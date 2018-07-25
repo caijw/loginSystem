@@ -11,4 +11,23 @@
 
 - (nonnull NSString *)getHelloWorld;
 
+- (nonnull NSString *)argon2:(nonnull NSString *)message
+                       tCost:(int32_t)tCost
+                       mCost:(int32_t)mCost
+                 parallelism:(int32_t)parallelism
+                        salt:(nonnull NSString *)salt;
+
+- (nonnull NSString *)AESEnc:(nonnull NSString *)message
+                         key:(nonnull NSString *)key;
+
+- (nonnull NSString *)AESDec:(nonnull NSString *)message
+                         key:(nonnull NSString *)key;
+
+- (nonnull NSString *)stringWithFixedLength:(nonnull NSString *)origin
+                                     length:(int32_t)length
+                                    padding:(nonnull NSString *)padding;
+
+- (nonnull NSString *)deStringWithFixedLength:(nonnull NSString *)origin
+                                      padding:(nonnull NSString *)padding;
+
 @end

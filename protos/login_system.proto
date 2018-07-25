@@ -9,7 +9,7 @@ service LoginSystem {
 	//test hello
 	rpc hello (helloRequest) returns (helloResponse) {}
 	//注册接口
-	rpc registerAccount (registerRequest) returns (registerResponse) {}
+	rpc registerAccount (registerRequest) returns (stream registerResponse) {}
 	//登录接口
 	rpc loginAccount (loginRequest) returns (loginResponse) {}
 	//session ticket 校验接口
@@ -24,9 +24,10 @@ message helloResponse {
 }
 
 message registerRequest {
-	string h1 = 1;
-	string nickname = 2;
-	string phone_num = 3;
+	string hash = 1;
+	string salt = 2;
+	string nickname = 3;
+	string phone_num = 4;
 }
 message registerResponse {
 	int32 ret = 1;

@@ -10,7 +10,7 @@
 #import <login_client_ios/LoginSystem.pbrpc.h>
 #import "LSSCrypto.h"
 extern LSSLoginSystem *loginClient;
-
+extern NSString *ST;
 @interface LoginVCViewController ()
 @property (strong, nonatomic) UILabel *uid_label;
 @property (strong, nonatomic) UITextView *uid_text;
@@ -58,17 +58,9 @@ extern LSSLoginSystem *loginClient;
     [self.view addSubview:self.psw_label];
     [self.view addSubview:self.psw_text];
     [self.view addSubview:self.confirm_btn];
-    
-    NSLog(@"loginClient: %@", loginClient);
-    
-    LSShelloRequest *request = [LSShelloRequest message];
-    request.helloClient = @"from ios client";
 
-    [loginClient helloWithRequest:request handler:^(LSShelloResponse *response, NSError *error) {
-        NSLog(@"serverHello:%@", response.helloServer);
-    }];
     
-    
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -76,15 +68,48 @@ extern LSSLoginSystem *loginClient;
     // Dispose of any resources that can be recreated.
 }
 
+
+
+
 -(void)goLogin:(UIButton*)sender{
     NSLog(@"click do goLogin");
     NSString *uid = self.uid_text.text;
     NSString *psw = self.psw_text.text;
     LSSCrypto *_cpp_crypto_api = [LSSCrypto create];
-    NSString *helloString = [_cpp_crypto_api getHelloWorld];
-    NSLog(@"call cpp api getHelloWorld: %@", helloString);
+    int32_t numTimestamp = [[NSDate date] timeIntervalSince1970];
+    NSString *timestamp = [NSString stringWithFormat:@"%d", numTimestamp];
+    int32_t tCost = 100;
+    int32_t mCost = 100;
+    int32_t parallelism = 100;
+    NSString *salt = @"";  /*should use a random num as the salt and pass it to the regist server*/
+    NSString *hash = [_cpp_crypto_api argon2:psw tCost:tCost mCost:mCost parallelism:parallelism salt:salt];
+    NSString *padding = @"x";
+    NSString *tmp_uid = [_cpp_crypto_api stringWithFixedLength:uid length:10 padding:padding];
+    NSString *tmp_timestamp = [_cpp_crypto_api stringWithFixedLength:timestamp length:10 padding:padding];
     
-    
+    NSString *data = [_cpp_crypto_api AESEnc:[NSString stringWithFormat:@"%@%@", tmp_uid, tmp_timestamp]  key:hash];
+    LSSloginRequest *request = [LSSloginRequest message];
+    request.data_p =  data;
+    request.userId = uid;
+
+    [loginClient loginAccountWithRequest:request handler:^(LSSloginResponse *response, NSError *error) {
+        int32_t ret = response.ret;
+        NSString *msg = response.msg;
+        ST = response.st;
+        if(ret == 0){
+            UIAlertController *alertMessage;
+            alertMessage = [UIAlertController alertControllerWithTitle: @"登录成功"   message:[NSString stringWithFormat:@"%@%@", @"session ticket:", ST] preferredStyle:UIAlertControllerStyleAlert];
+            [alertMessage addAction:[UIAlertAction actionWithTitle:@"comfirm" style:UIAlertActionStyleDefault handler:nil]];
+            
+            [self presentViewController:alertMessage animated:YES completion:nil];
+        }else{
+            UIAlertController *alertMessage;
+            alertMessage = [UIAlertController alertControllerWithTitle: @"登录失败"   message:[NSString stringWithFormat:@"%@%d%@%@", @"ret:", ret, @";msg:", msg] preferredStyle:UIAlertControllerStyleAlert];
+            [alertMessage addAction:[UIAlertAction actionWithTitle:@"comfirm" style:UIAlertActionStyleDefault handler:nil]];
+            
+            [self presentViewController:alertMessage animated:YES completion:nil];
+        }
+    }];
     
 }
 /*

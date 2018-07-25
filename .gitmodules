@@ -7,3 +7,6 @@
 [submodule "deps/plog"]
 	path = deps/plog
 	url = git@github.com:SergiusTheBest/plog.git
+[submodule "deps/argon2"]
+	path = deps/argon2
+	url = git@github.com:P-H-C/phc-winner-argon2.git

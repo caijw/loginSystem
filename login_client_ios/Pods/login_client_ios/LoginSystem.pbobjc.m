@@ -143,13 +143,15 @@ typedef struct LSShelloResponse__storage_ {
 
 @implementation LSSregisterRequest
 
-@dynamic h1;
+@dynamic hash_p;
+@dynamic salt;
 @dynamic nickname;
 @dynamic phoneNum;
 
 typedef struct LSSregisterRequest__storage_ {
   uint32_t _has_storage_[1];
-  NSString *h1;
+  NSString *hash_p;
+  NSString *salt;
   NSString *nickname;
   NSString *phoneNum;
 } LSSregisterRequest__storage_;
@@ -161,11 +163,20 @@ typedef struct LSSregisterRequest__storage_ {
   if (!descriptor) {
     static GPBMessageFieldDescription fields[] = {
       {
-        .name = "h1",
+        .name = "hash_p",
         .dataTypeSpecific.className = NULL,
-        .number = LSSregisterRequest_FieldNumber_H1,
+        .number = LSSregisterRequest_FieldNumber_Hash_p,
         .hasIndex = 0,
-        .offset = (uint32_t)offsetof(LSSregisterRequest__storage_, h1),
+        .offset = (uint32_t)offsetof(LSSregisterRequest__storage_, hash_p),
+        .flags = GPBFieldOptional,
+        .dataType = GPBDataTypeString,
+      },
+      {
+        .name = "salt",
+        .dataTypeSpecific.className = NULL,
+        .number = LSSregisterRequest_FieldNumber_Salt,
+        .hasIndex = 1,
+        .offset = (uint32_t)offsetof(LSSregisterRequest__storage_, salt),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeString,
       },
@@ -173,7 +184,7 @@ typedef struct LSSregisterRequest__storage_ {
         .name = "nickname",
         .dataTypeSpecific.className = NULL,
         .number = LSSregisterRequest_FieldNumber_Nickname,
-        .hasIndex = 1,
+        .hasIndex = 2,
         .offset = (uint32_t)offsetof(LSSregisterRequest__storage_, nickname),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeString,
@@ -182,7 +193,7 @@ typedef struct LSSregisterRequest__storage_ {
         .name = "phoneNum",
         .dataTypeSpecific.className = NULL,
         .number = LSSregisterRequest_FieldNumber_PhoneNum,
-        .hasIndex = 2,
+        .hasIndex = 3,
         .offset = (uint32_t)offsetof(LSSregisterRequest__storage_, phoneNum),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeString,

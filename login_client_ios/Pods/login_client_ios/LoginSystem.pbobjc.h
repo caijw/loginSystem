@@ -71,14 +71,17 @@ typedef GPB_ENUM(LSShelloResponse_FieldNumber) {
 #pragma mark - LSSregisterRequest
 
 typedef GPB_ENUM(LSSregisterRequest_FieldNumber) {
-  LSSregisterRequest_FieldNumber_H1 = 1,
-  LSSregisterRequest_FieldNumber_Nickname = 2,
-  LSSregisterRequest_FieldNumber_PhoneNum = 3,
+  LSSregisterRequest_FieldNumber_Hash_p = 1,
+  LSSregisterRequest_FieldNumber_Salt = 2,
+  LSSregisterRequest_FieldNumber_Nickname = 3,
+  LSSregisterRequest_FieldNumber_PhoneNum = 4,
 };
 
 @interface LSSregisterRequest : GPBMessage
 
-@property(nonatomic, readwrite, copy, null_resettable) NSString *h1;
+@property(nonatomic, readwrite, copy, null_resettable) NSString *hash_p;
+
+@property(nonatomic, readwrite, copy, null_resettable) NSString *salt;
 
 @property(nonatomic, readwrite, copy, null_resettable) NSString *nickname;
 

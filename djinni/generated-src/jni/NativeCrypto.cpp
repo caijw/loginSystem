@@ -38,4 +38,63 @@ CJNIEXPORT jstring JNICALL Java_com_mycompany_crypto_Crypto_00024CppProxy_native
     } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, 0 /* value doesn't matter */)
 }
 
+CJNIEXPORT jstring JNICALL Java_com_mycompany_crypto_Crypto_00024CppProxy_native_1argon2(JNIEnv* jniEnv, jobject /*this*/, jlong nativeRef, jstring j_message, jint j_tCost, jint j_mCost, jint j_parallelism, jstring j_salt)
+{
+    try {
+        DJINNI_FUNCTION_PROLOGUE1(jniEnv, nativeRef);
+        const auto& ref = ::djinni::objectFromHandleAddress<::crypto::Crypto>(nativeRef);
+        auto r = ref->argon2(::djinni::String::toCpp(jniEnv, j_message),
+                             ::djinni::I32::toCpp(jniEnv, j_tCost),
+                             ::djinni::I32::toCpp(jniEnv, j_mCost),
+                             ::djinni::I32::toCpp(jniEnv, j_parallelism),
+                             ::djinni::String::toCpp(jniEnv, j_salt));
+        return ::djinni::release(::djinni::String::fromCpp(jniEnv, r));
+    } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, 0 /* value doesn't matter */)
+}
+
+CJNIEXPORT jstring JNICALL Java_com_mycompany_crypto_Crypto_00024CppProxy_native_1AESEnc(JNIEnv* jniEnv, jobject /*this*/, jlong nativeRef, jstring j_message, jstring j_key)
+{
+    try {
+        DJINNI_FUNCTION_PROLOGUE1(jniEnv, nativeRef);
+        const auto& ref = ::djinni::objectFromHandleAddress<::crypto::Crypto>(nativeRef);
+        auto r = ref->AESEnc(::djinni::String::toCpp(jniEnv, j_message),
+                             ::djinni::String::toCpp(jniEnv, j_key));
+        return ::djinni::release(::djinni::String::fromCpp(jniEnv, r));
+    } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, 0 /* value doesn't matter */)
+}
+
+CJNIEXPORT jstring JNICALL Java_com_mycompany_crypto_Crypto_00024CppProxy_native_1AESDec(JNIEnv* jniEnv, jobject /*this*/, jlong nativeRef, jstring j_message, jstring j_key)
+{
+    try {
+        DJINNI_FUNCTION_PROLOGUE1(jniEnv, nativeRef);
+        const auto& ref = ::djinni::objectFromHandleAddress<::crypto::Crypto>(nativeRef);
+        auto r = ref->AESDec(::djinni::String::toCpp(jniEnv, j_message),
+                             ::djinni::String::toCpp(jniEnv, j_key));
+        return ::djinni::release(::djinni::String::fromCpp(jniEnv, r));
+    } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, 0 /* value doesn't matter */)
+}
+
+CJNIEXPORT jstring JNICALL Java_com_mycompany_crypto_Crypto_00024CppProxy_native_1stringWithFixedLength(JNIEnv* jniEnv, jobject /*this*/, jlong nativeRef, jstring j_origin, jint j_length, jstring j_padding)
+{
+    try {
+        DJINNI_FUNCTION_PROLOGUE1(jniEnv, nativeRef);
+        const auto& ref = ::djinni::objectFromHandleAddress<::crypto::Crypto>(nativeRef);
+        auto r = ref->stringWithFixedLength(::djinni::String::toCpp(jniEnv, j_origin),
+                                            ::djinni::I32::toCpp(jniEnv, j_length),
+                                            ::djinni::String::toCpp(jniEnv, j_padding));
+        return ::djinni::release(::djinni::String::fromCpp(jniEnv, r));
+    } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, 0 /* value doesn't matter */)
+}
+
+CJNIEXPORT jstring JNICALL Java_com_mycompany_crypto_Crypto_00024CppProxy_native_1deStringWithFixedLength(JNIEnv* jniEnv, jobject /*this*/, jlong nativeRef, jstring j_origin, jstring j_padding)
+{
+    try {
+        DJINNI_FUNCTION_PROLOGUE1(jniEnv, nativeRef);
+        const auto& ref = ::djinni::objectFromHandleAddress<::crypto::Crypto>(nativeRef);
+        auto r = ref->deStringWithFixedLength(::djinni::String::toCpp(jniEnv, j_origin),
+                                              ::djinni::String::toCpp(jniEnv, j_padding));
+        return ::djinni::release(::djinni::String::fromCpp(jniEnv, r));
+    } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, 0 /* value doesn't matter */)
+}
+
 }  // namespace djinni_generated

@@ -1,4 +1,16 @@
 crypto = interface +c {
   static create(): crypto;
+
   get_hello_world(): string;
+
+  argon2(message: string, t_cost: i32, m_cost: i32, parallelism: i32, salt: string): string;
+
+  AESEnc(message: string, key: string): string;
+
+  AESDec(message: string, key: string): string;
+
+  stringWithFixedLength(origin: string, length: i32, padding: string): string;
+
+  deStringWithFixedLength(origin: string, padding: string): string;
+
 }

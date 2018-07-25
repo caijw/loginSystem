@@ -7,6 +7,11 @@
 //
 
 #import "RegisterVCViewController.h"
+#import <login_client_ios/LoginSystem.pbrpc.h>
+#import "LSSCrypto.h"
+
+extern LSSLoginSystem *loginClient;
+extern NSString *ST;
 
 @interface RegisterVCViewController ()
 @property (strong, nonatomic) UILabel *nickname_label;
@@ -75,6 +80,46 @@
 
 -(void)goRegister:(UIButton*)sender{
     NSLog(@"click do goRegister");
+
+    NSString *nickname = self.nickname_text.text;
+    NSString *psw = self.psw_text.text;
+    NSString *phone_num = self.phone_num_text.text;
+    NSString *salt = @"";
+    LSSCrypto *_cpp_crypto_api = [LSSCrypto create];
+    int32_t tCost = 100;
+    int32_t mCost = 100;
+    int32_t parallelism = 100;
+    
+
+    NSString *hash = [_cpp_crypto_api argon2:psw tCost:tCost mCost:mCost parallelism:parallelism salt:salt];
+    
+    LSSregisterRequest *request = [LSSregisterRequest message];
+    request.hash_p = hash;
+    request.salt = salt;
+    request.nickname = nickname;
+    request.phoneNum = phone_num;
+    
+    [loginClient registerAccountWithRequest:request handler:^(LSSregisterResponse *response, NSError *error) {
+        int32_t ret = response.ret;
+        NSString *msg = response.msg;
+        NSString *uid = response.userId;
+        if(ret == 0){
+            UIAlertController *alertMessage;
+            alertMessage = [UIAlertController alertControllerWithTitle: @"注册成功"   message:[NSString stringWithFormat:@"%@%@", @"user id:", uid] preferredStyle:UIAlertControllerStyleAlert];
+
+            [alertMessage addAction:[UIAlertAction actionWithTitle:@"comfirm" style:UIAlertActionStyleDefault handler:nil]];
+        
+            [self presentViewController:alertMessage animated:YES completion:nil];
+        }else{
+            UIAlertController *alertMessage;
+            alertMessage = [UIAlertController alertControllerWithTitle: @"注册失败"   message:[NSString stringWithFormat:@"%@%d%@%@", @"ret:", ret, @";msg:", msg] preferredStyle:UIAlertControllerStyleAlert];
+            [alertMessage addAction:[UIAlertAction actionWithTitle:@"comfirm" style:UIAlertActionStyleDefault handler:nil]];
+            
+            [self presentViewController:alertMessage animated:YES completion:nil];
+        }
+        
+        
+    }];
 }
 
 /*

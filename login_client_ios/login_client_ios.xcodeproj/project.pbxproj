@@ -22,7 +22,7 @@
 		45B2897C21089F2F00439499 /* DJIProxyCaches.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B2897721089F2F00439499 /* DJIProxyCaches.mm */; };
 		45B289842108A00200439499 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B289832108A00200439499 /* main.m */; };
 		45B2898A2108A09700439499 /* crypto_impl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B289892108A09700439499 /* crypto_impl.cpp */; };
-		45B2898C2108A0AF00439499 /* crypto_impl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B289892108A09700439499 /* crypto_impl.cpp */; };
+		45B2898D2108A8C100439499 /* crypto_impl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B289892108A09700439499 /* crypto_impl.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -319,9 +319,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45B2898C2108A0AF00439499 /* crypto_impl.cpp in Sources */,
 				45B2896921089DC900439499 /* XLBasePageController.m in Sources */,
 				45B2896621089DC900439499 /* main.mm in Sources */,
+				45B2898D2108A8C100439499 /* crypto_impl.cpp in Sources */,
 				45B2894E21089D2600439499 /* ViewController.m in Sources */,
 				45B2896821089DC900439499 /* LoginVCViewController.m in Sources */,
 				45B2897B21089F2F00439499 /* DJIError.mm in Sources */,
