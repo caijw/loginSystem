@@ -20,6 +20,8 @@ using grpc::Server;
 using grpc::ServerBuilder;
 using grpc::ServerContext;
 using grpc::Status;
+using login_system::helloRequest;
+using login_system::helloResponse;
 using login_system::registerRequest;
 using login_system::registerResponse;
 using login_system::loginRequest;
@@ -42,11 +44,22 @@ std::string K_AS_SS = "K_AS_SS";
 
 
 class LoginSystemServiceImpl final : public LoginSystem::Service {
+
+  Status hello(ServerContext* context, const helloRequest* request,
+                  helloResponse* response) override{
+    std::string clientHello = request->helloclient();
+    LOGD<< "receive client hello: " << clientHello;
+    response->set_helloserver("from server");
+    return Status::OK;
+  }
+  
   Status registerAccount(ServerContext* context, const registerRequest* request,
                   registerResponse* response) override {
+    LOGD << "registerAccount";
     std::string H1 = request->h1();
     std::string nickname = request->nickname();
     std::string phone_num = request->phone_num();
+    std::cout << "H1: " << H1;
     int ret;
     std::string userId;
     ret = user_id::getInstance()->getNewUserId(userId);
@@ -217,23 +230,37 @@ class LoginSystemServiceImpl final : public LoginSystem::Service {
     return Status::OK;
   }
 };
-void RunServer() {
+void RunServer(int argc, char** argv) {
   std::string server_address("0.0.0.0:50051");
-  std::string key;
-  std::string cert;
-  std::string root;
-  /*https://github.com/grpc/grpc/issues/9538*/ 
-  readFile( "server.crt", cert );
-  readFile( "server.key", key );
-  readFile( "ca.crt", root );
-
+  bool useSSL = false;
+  for(int i = 1; i < argc; i++){
+    if(std::string(argv[i]) == "--useSSL=1"){
+      useSSL = true;
+    }
+  }
   LoginSystemServiceImpl service;
   ServerBuilder builder;
-  grpc::SslServerCredentialsOptions::PemKeyCertPair keycert ={key, cert};
-  grpc::SslServerCredentialsOptions sslOps;
-  sslOps.pem_root_certs = root;
-  sslOps.pem_key_cert_pairs.push_back ( keycert );
-  builder.AddListeningPort(server_address, grpc::SslServerCredentials( sslOps ));
+
+  if(useSSL){
+    LOGD << "use SSL";
+    std::string key;
+    std::string cert;
+    std::string root;
+    /*https://github.com/grpc/grpc/issues/9538*/ 
+    readFile( "server.crt", cert );
+    readFile( "server.key", key );
+    readFile( "ca.crt", root );
+    grpc::SslServerCredentialsOptions::PemKeyCertPair keycert ={key, cert};
+    grpc::SslServerCredentialsOptions sslOps;
+    sslOps.pem_root_certs = root;
+    sslOps.pem_key_cert_pairs.push_back ( keycert );
+    builder.AddListeningPort(server_address, grpc::SslServerCredentials( sslOps ));
+  }else{
+    LOGD << "not use SSL";
+    builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
+
+  }
+
   // Register "service" as the instance through which we'll communicate with
   // clients. In this case it corresponds to an *synchronous* service.
   builder.RegisterService(&service);
@@ -252,7 +279,7 @@ int main(int argc, char** argv) {
   /*init database*/
   Database::getInstance()->setDb("mongodb://localhost:27017", "login_system");
 
-  RunServer();
+  RunServer(argc, argv);
 
 
   return 0;

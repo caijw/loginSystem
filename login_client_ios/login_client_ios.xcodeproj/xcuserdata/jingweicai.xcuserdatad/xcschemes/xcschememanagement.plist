@@ -7,27 +7,12 @@
 		<key>login_client_cpp.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>11</integer>
 		</dict>
 		<key>login_client_ios.xcscheme</key>
 		<dict>
-			<key>isShown</key>
-			<true/>
 			<key>orderHint</key>
-			<integer>0</integer>
-		</dict>
-	</dict>
-	<key>SuppressBuildableAutocreation</key>
-	<dict>
-		<key>45F519BB2106376A009ED5EC</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>45F519F42106DB9F009ED5EC</key>
-		<dict>
-			<key>primary</key>
-			<true/>
+			<integer>10</integer>
 		</dict>
 	</dict>
 </dict>

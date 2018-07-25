@@ -8,6 +8,8 @@
 
 #import "XLBasePageController.h"
 
+
+
 @interface XLBasePageController ()<UIPageViewControllerDelegate,UIPageViewControllerDataSource>
 {
     NSInteger totalVC;         //VC的总数量

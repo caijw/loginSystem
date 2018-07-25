@@ -11,6 +11,8 @@
 using grpc::Channel;
 using grpc::ClientContext;
 using grpc::Status;
+using login_system::helloRequest;
+using login_system::helloResponse;
 using login_system::registerRequest;
 using login_system::registerResponse;
 using login_system::loginRequest;
@@ -21,15 +23,52 @@ std::string global_ST;
 
 class Client {
  public:
-  Client(const std::string& root, const std::string& server)
+  Client(int argc, char** argv)
   {
-    grpc::SslCredentialsOptions opts =
-    {
-      root
-    };
 
-    stub_ = LoginSystem::NewStub ( grpc::CreateChannel (
-      server, grpc::SslCredentials ( opts ) ) );
+    for(int i = 1; i < argc; i++){
+      if(std::string(argv[i]) == "--useSSL=1"){
+        useSSL = true;
+      }
+    }
+    std::string server { "localhost:50051" };
+
+    if(useSSL){
+      std::cout << "use SSL" << std::endl;
+      std::string cert;
+      std::string key;
+      std::string root;
+      readFile( "ca.crt", root );
+      grpc::SslCredentialsOptions opts =
+      {
+        root
+      };
+
+      stub_ = LoginSystem::NewStub (
+        grpc::CreateChannel (server,
+          grpc::SslCredentials ( opts ) ) );
+    }else{
+      std::cout << "not use SSL" << std::endl;
+      stub_ = LoginSystem::NewStub (
+        grpc::CreateChannel (server,
+          grpc::InsecureChannelCredentials() ) );
+    }
+
+  }
+
+  void hello(){
+    helloRequest request;
+    request.set_helloclient("hello form cpp");
+    helloResponse response;
+    ClientContext context;
+    Status status = stub_->hello(&context, request, &response);
+    if (status.ok()) {
+      std::cout << "hello response: " << response.helloserver() << std::endl;
+      return;
+    } else {
+      std::cout << status.error_code() << ": " << status.error_message() << std::endl;
+      return;
+    }
   }
 
   // Assembles the client's payload, sends it and presents the response back
@@ -142,6 +181,7 @@ class Client {
   }
  private:
   std::unique_ptr<LoginSystem::Stub> stub_;
+  bool useSSL;
 };
 
 
@@ -150,19 +190,10 @@ int main(int argc, char** argv) {
 
   plog::init(plog::debug, "./client_log.log");
 
-  std::string cert;
-  std::string key;
-  std::string root;
-  std::string server { "localhost:50051" };
-
-  readFile( "ca.crt", root );
-
-  Client client (root, server);
-
-  
+  Client client (argc, argv);
 
   int operation = 0;
-  std::cout << "input your operation type, 1:[register] 2:[login] 0:[exit]: ";
+  std::cout << "input your operation type, 1:[register] 2:[login] 3:[hello] 0:[exit]: ";
   std::cin >> operation;
   switch(operation){
     case 1:
@@ -172,6 +203,10 @@ int main(int argc, char** argv) {
     case 2:
       std::cout << "login operation" << std::endl;
       client.loginAccount();
+      break;
+    case 3:
+      std::cout << "hello operation" << std::endl;
+      client.hello();
       break;
     case 0:
       std::cout << "exit operation" << std::endl;

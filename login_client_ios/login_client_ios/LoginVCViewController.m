@@ -7,6 +7,9 @@
 //
 
 #import "LoginVCViewController.h"
+#import <login_client_ios/LoginSystem.pbrpc.h>
+#import "LSSCrypto.h"
+extern LSSLoginSystem *loginClient;
 
 @interface LoginVCViewController ()
 @property (strong, nonatomic) UILabel *uid_label;
@@ -23,16 +26,16 @@
     
     self.uid_label = [[UILabel alloc] init];
     self.uid_label.text = @"user id:";
-    self.uid_label.frame = CGRectMake(20, 100, 100, 30);
+    self.uid_label.frame = CGRectMake(20, 100, 200, 30);
     
     self.uid_text = [[UITextView alloc] init];
     self.uid_text.text = @"";
-    self.uid_text.frame = CGRectMake(20, 150, 100, 30);
+    self.uid_text.frame = CGRectMake(20, 150, 200, 30);
     self.uid_text.backgroundColor = [UIColor lightGrayColor];
     
     self.psw_label = [[UILabel alloc] init];
     self.psw_label.text = @"password:";
-    self.psw_label.frame = CGRectMake(20, 200, 100, 30);
+    self.psw_label.frame = CGRectMake(20, 200, 200, 30);
     
     self.psw_text = [[UITextView alloc] init];
     self.psw_text.text = @"";
@@ -56,6 +59,16 @@
     [self.view addSubview:self.psw_text];
     [self.view addSubview:self.confirm_btn];
     
+    NSLog(@"loginClient: %@", loginClient);
+    
+    LSShelloRequest *request = [LSShelloRequest message];
+    request.helloClient = @"from ios client";
+
+    [loginClient helloWithRequest:request handler:^(LSShelloResponse *response, NSError *error) {
+        NSLog(@"serverHello:%@", response.helloServer);
+    }];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -65,6 +78,14 @@
 
 -(void)goLogin:(UIButton*)sender{
     NSLog(@"click do goLogin");
+    NSString *uid = self.uid_text.text;
+    NSString *psw = self.psw_text.text;
+    LSSCrypto *_cpp_crypto_api = [LSSCrypto create];
+    NSString *helloString = [_cpp_crypto_api getHelloWorld];
+    NSLog(@"call cpp api getHelloWorld: %@", helloString);
+    
+    
+    
 }
 /*
  #pragma mark - Navigation

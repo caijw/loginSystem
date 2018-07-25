@@ -6,13 +6,13 @@
 djinni_file="loginSystem.djinni"
 
 # C++ namespace for generated src
-namespace="helloworld"
+namespace="crypto"
 
 # Objective-C class name prefix for generated src
-objc_prefix="HW"
+objc_prefix="LSS"
 
 # Java package name for generated src
-java_package="com.mycompany.helloworld"
+java_package="com.mycompany.crypto"
 
 
 ### Script

@@ -1,0 +1,60 @@
+{
+  "name": "login_client_ios",
+  "version": "0.0.1",
+  "license": "Apache License, Version 2.0",
+  "authors": {
+    "kingweicai": "285025525@qq.com"
+  },
+  "homepage": "https://grpc.io/",
+  "summary": "login_client_ios",
+  "source": {
+    "git": "https://github.com/caijw/loginSystem"
+  },
+  "platforms": {
+    "ios": "7.1",
+    "osx": "10.9"
+  },
+  "dependencies": {
+    "!ProtoCompiler-gRPCPlugin": [
+      "~> 1.0"
+    ]
+  },
+  "prepare_command": "mkdir -p Pods/login_client_ios\nPods/!ProtoCompiler/protoc         --plugin=protoc-gen-grpc=Pods/!ProtoCompiler-gRPCPlugin/grpc_objective_c_plugin         --objc_out=Pods/login_client_ios         --grpc_out=Pods/login_client_ios         -I ../protos         -I Pods/!ProtoCompiler         ../protos/login_system.proto",
+  "pod_target_xcconfig": {
+    "GCC_PREPROCESSOR_DEFINITIONS": "$(inherited) GPB_USE_PROTOBUF_FRAMEWORK_IMPORTS=1",
+    "CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES": "YES"
+  },
+  "subspecs": [
+    {
+      "name": "Messages",
+      "source_files": [
+        "Pods/login_client_ios/*.pbobjc.{h,m}",
+        "Pods/login_client_ios/**/*.pbobjc.{h,m}"
+      ],
+      "header_mappings_dir": "Pods/login_client_ios",
+      "requires_arc": false,
+      "dependencies": {
+        "Protobuf": [
+
+        ]
+      }
+    },
+    {
+      "name": "Services",
+      "source_files": [
+        "Pods/login_client_ios/*.pbrpc.{h,m}",
+        "Pods/login_client_ios/**/*.pbrpc.{h,m}"
+      ],
+      "header_mappings_dir": "Pods/login_client_ios",
+      "requires_arc": true,
+      "dependencies": {
+        "gRPC-ProtoRPC": [
+
+        ],
+        "login_client_ios/Messages": [
+
+        ]
+      }
+    }
+  ]
+}

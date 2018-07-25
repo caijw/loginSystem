@@ -7,34 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		45F519C12106376A009ED5EC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 45F519C02106376A009ED5EC /* AppDelegate.m */; };
-		45F519C42106376A009ED5EC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45F519C32106376A009ED5EC /* ViewController.m */; };
-		45F519C72106376A009ED5EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45F519C52106376A009ED5EC /* Main.storyboard */; };
-		45F519C92106376B009ED5EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45F519C82106376B009ED5EC /* Assets.xcassets */; };
-		45F519CC2106376B009ED5EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45F519CA2106376B009ED5EC /* LaunchScreen.storyboard */; };
-		45F519CF2106376B009ED5EC /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45F519CE2106376B009ED5EC /* main.mm */; };
-		45F519E32106CD11009ED5EC /* XLBasePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45F519E22106CD11009ED5EC /* XLBasePageController.m */; };
-		45F519E62106CF9E009ED5EC /* LoginVCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45F519E52106CF9E009ED5EC /* LoginVCViewController.m */; };
-		45F519E92106CFD2009ED5EC /* RegisterVCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45F519E82106CFD2009ED5EC /* RegisterVCViewController.m */; };
-		45F51A062106DCF5009ED5EC /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45F51A052106DCF5009ED5EC /* main.cpp */; };
-		45F51A0C2106DD19009ED5EC /* hello_world_impl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45F51A0B2106DD19009ED5EC /* hello_world_impl.cpp */; };
-		45F51A0F2106DF76009ED5EC /* hello_world_impl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45F51A0B2106DD19009ED5EC /* hello_world_impl.cpp */; };
-		45F51A172106E002009ED5EC /* DJIError.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45F51A112106E001009ED5EC /* DJIError.mm */; };
-		45F51A182106E002009ED5EC /* DJIProxyCaches.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45F51A132106E001009ED5EC /* DJIProxyCaches.mm */; };
-		45F51A1D2106E0C2009ED5EC /* HWHelloWorld+Private.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45F51A1A2106E0C2009ED5EC /* HWHelloWorld+Private.mm */; };
+		30E5E04435C69AED85CE83DA /* libPods-login_client_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EFB8BF08261A251F4FC3DF4 /* libPods-login_client_ios.a */; };
+		45B2894B21089D2600439499 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B2894A21089D2600439499 /* AppDelegate.m */; };
+		45B2894E21089D2600439499 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B2894D21089D2600439499 /* ViewController.m */; };
+		45B2895121089D2600439499 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45B2894F21089D2600439499 /* Main.storyboard */; };
+		45B2895321089D2800439499 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45B2895221089D2800439499 /* Assets.xcassets */; };
+		45B2895621089D2800439499 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45B2895421089D2800439499 /* LaunchScreen.storyboard */; };
+		45B2896621089DC900439499 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B2895F21089DC800439499 /* main.mm */; };
+		45B2896721089DC900439499 /* RegisterVCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B2896121089DC800439499 /* RegisterVCViewController.m */; };
+		45B2896821089DC900439499 /* LoginVCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B2896321089DC900439499 /* LoginVCViewController.m */; };
+		45B2896921089DC900439499 /* XLBasePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B2896421089DC900439499 /* XLBasePageController.m */; };
+		45B2897421089F0800439499 /* LSSCrypto+Private.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B2897321089F0800439499 /* LSSCrypto+Private.mm */; };
+		45B2897B21089F2F00439499 /* DJIError.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B2897521089F2F00439499 /* DJIError.mm */; };
+		45B2897C21089F2F00439499 /* DJIProxyCaches.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B2897721089F2F00439499 /* DJIProxyCaches.mm */; };
+		45B289842108A00200439499 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B289832108A00200439499 /* main.m */; };
+		45B2898A2108A09700439499 /* crypto_impl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B289892108A09700439499 /* crypto_impl.cpp */; };
+		45B2898C2108A0AF00439499 /* crypto_impl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B289892108A09700439499 /* crypto_impl.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		45F519F32106DB9F009ED5EC /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-		};
-		45F51A012106DCF5009ED5EC /* CopyFiles */ = {
+		45B2897F2108A00200439499 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -46,55 +38,51 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		45F519BC2106376A009ED5EC /* login_client_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = login_client_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		45F519BF2106376A009ED5EC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		45F519C02106376A009ED5EC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		45F519C22106376A009ED5EC /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		45F519C32106376A009ED5EC /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		45F519C62106376A009ED5EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		45F519C82106376B009ED5EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		45F519CB2106376B009ED5EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		45F519CD2106376B009ED5EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		45F519CE2106376B009ED5EC /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
-		45F519E12106CD11009ED5EC /* XLBasePageController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XLBasePageController.h; sourceTree = "<group>"; };
-		45F519E22106CD11009ED5EC /* XLBasePageController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XLBasePageController.m; sourceTree = "<group>"; };
-		45F519E42106CF9E009ED5EC /* LoginVCViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginVCViewController.h; sourceTree = "<group>"; };
-		45F519E52106CF9E009ED5EC /* LoginVCViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginVCViewController.m; sourceTree = "<group>"; };
-		45F519E72106CFD2009ED5EC /* RegisterVCViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterVCViewController.h; sourceTree = "<group>"; };
-		45F519E82106CFD2009ED5EC /* RegisterVCViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterVCViewController.m; sourceTree = "<group>"; };
-		45F519F52106DB9F009ED5EC /* cpp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cpp; sourceTree = BUILT_PRODUCTS_DIR; };
-		45F51A032106DCF5009ED5EC /* login_client_cpp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = login_client_cpp; sourceTree = BUILT_PRODUCTS_DIR; };
-		45F51A052106DCF5009ED5EC /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		45F51A0A2106DD19009ED5EC /* hello_world_impl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = hello_world_impl.hpp; path = ../../src/hello_world_impl.hpp; sourceTree = "<group>"; };
-		45F51A0B2106DD19009ED5EC /* hello_world_impl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hello_world_impl.cpp; path = ../../src/hello_world_impl.cpp; sourceTree = "<group>"; };
-		45F51A0D2106DD2C009ED5EC /* hello_world.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = hello_world.hpp; path = "../../djinni/generated-src/cpp/hello_world.hpp"; sourceTree = "<group>"; };
-		45F51A112106E001009ED5EC /* DJIError.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = DJIError.mm; path = "../../../deps/djinni/support-lib/objc/DJIError.mm"; sourceTree = "<group>"; };
-		45F51A122106E001009ED5EC /* DJIMarshal+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DJIMarshal+Private.h"; path = "../../../deps/djinni/support-lib/objc/DJIMarshal+Private.h"; sourceTree = "<group>"; };
-		45F51A132106E001009ED5EC /* DJIProxyCaches.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = DJIProxyCaches.mm; path = "../../../deps/djinni/support-lib/objc/DJIProxyCaches.mm"; sourceTree = "<group>"; };
-		45F51A142106E002009ED5EC /* DJIError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DJIError.h; path = "../../../deps/djinni/support-lib/objc/DJIError.h"; sourceTree = "<group>"; };
-		45F51A152106E002009ED5EC /* DJICppWrapperCache+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DJICppWrapperCache+Private.h"; path = "../../../deps/djinni/support-lib/objc/DJICppWrapperCache+Private.h"; sourceTree = "<group>"; };
-		45F51A162106E002009ED5EC /* DJIObjcWrapperCache+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DJIObjcWrapperCache+Private.h"; path = "../../../deps/djinni/support-lib/objc/DJIObjcWrapperCache+Private.h"; sourceTree = "<group>"; };
-		45F51A1A2106E0C2009ED5EC /* HWHelloWorld+Private.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "HWHelloWorld+Private.mm"; path = "../../../djinni/generated-src/objc/HWHelloWorld+Private.mm"; sourceTree = "<group>"; };
-		45F51A1B2106E0C2009ED5EC /* HWHelloWorld+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "HWHelloWorld+Private.h"; path = "../../../djinni/generated-src/objc/HWHelloWorld+Private.h"; sourceTree = "<group>"; };
-		45F51A1C2106E0C2009ED5EC /* HWHelloWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HWHelloWorld.h; path = "../../../djinni/generated-src/objc/HWHelloWorld.h"; sourceTree = "<group>"; };
+		10B52CE468E7095516F94C19 /* Pods-login_client_ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-login_client_ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-login_client_ios/Pods-login_client_ios.release.xcconfig"; sourceTree = "<group>"; };
+		45B2894621089D2600439499 /* login_client_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = login_client_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		45B2894921089D2600439499 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		45B2894A21089D2600439499 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		45B2894C21089D2600439499 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		45B2894D21089D2600439499 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		45B2895021089D2600439499 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		45B2895221089D2800439499 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		45B2895521089D2800439499 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		45B2895721089D2800439499 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		45B2895F21089DC800439499 /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
+		45B2896021089DC800439499 /* RegisterVCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterVCViewController.h; sourceTree = "<group>"; };
+		45B2896121089DC800439499 /* RegisterVCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterVCViewController.m; sourceTree = "<group>"; };
+		45B2896221089DC900439499 /* LoginVCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginVCViewController.h; sourceTree = "<group>"; };
+		45B2896321089DC900439499 /* LoginVCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVCViewController.m; sourceTree = "<group>"; };
+		45B2896421089DC900439499 /* XLBasePageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLBasePageController.m; sourceTree = "<group>"; };
+		45B2896521089DC900439499 /* XLBasePageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLBasePageController.h; sourceTree = "<group>"; };
+		45B2897121089F0800439499 /* LSSCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSSCrypto.h; path = "../../../djinni/generated-src/objc/LSSCrypto.h"; sourceTree = "<group>"; };
+		45B2897221089F0800439499 /* LSSCrypto+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "LSSCrypto+Private.h"; path = "../../../djinni/generated-src/objc/LSSCrypto+Private.h"; sourceTree = "<group>"; };
+		45B2897321089F0800439499 /* LSSCrypto+Private.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "LSSCrypto+Private.mm"; path = "../../../djinni/generated-src/objc/LSSCrypto+Private.mm"; sourceTree = "<group>"; };
+		45B2897521089F2F00439499 /* DJIError.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = DJIError.mm; path = "../../../deps/djinni/support-lib/objc/DJIError.mm"; sourceTree = "<group>"; };
+		45B2897621089F2F00439499 /* DJIMarshal+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DJIMarshal+Private.h"; path = "../../../deps/djinni/support-lib/objc/DJIMarshal+Private.h"; sourceTree = "<group>"; };
+		45B2897721089F2F00439499 /* DJIProxyCaches.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = DJIProxyCaches.mm; path = "../../../deps/djinni/support-lib/objc/DJIProxyCaches.mm"; sourceTree = "<group>"; };
+		45B2897821089F2F00439499 /* DJIError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DJIError.h; path = "../../../deps/djinni/support-lib/objc/DJIError.h"; sourceTree = "<group>"; };
+		45B2897921089F2F00439499 /* DJICppWrapperCache+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DJICppWrapperCache+Private.h"; path = "../../../deps/djinni/support-lib/objc/DJICppWrapperCache+Private.h"; sourceTree = "<group>"; };
+		45B2897A21089F2F00439499 /* DJIObjcWrapperCache+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DJIObjcWrapperCache+Private.h"; path = "../../../deps/djinni/support-lib/objc/DJIObjcWrapperCache+Private.h"; sourceTree = "<group>"; };
+		45B289812108A00200439499 /* login_client_cpp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = login_client_cpp; sourceTree = BUILT_PRODUCTS_DIR; };
+		45B289832108A00200439499 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		45B289882108A09700439499 /* crypto_impl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = crypto_impl.hpp; path = ../../src/crypto_impl.hpp; sourceTree = "<group>"; };
+		45B289892108A09700439499 /* crypto_impl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = crypto_impl.cpp; path = ../../src/crypto_impl.cpp; sourceTree = "<group>"; };
+		45B2898B2108A0A200439499 /* crypto.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = crypto.hpp; path = "../../djinni/generated-src/cpp/crypto.hpp"; sourceTree = "<group>"; };
+		4EFB8BF08261A251F4FC3DF4 /* libPods-login_client_ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-login_client_ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4568021E1594E0C76EDDC6E /* Pods-login_client_ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-login_client_ios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-login_client_ios/Pods-login_client_ios.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		45F519B92106376A009ED5EC /* Frameworks */ = {
+		45B2894321089D2600439499 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30E5E04435C69AED85CE83DA /* libPods-login_client_ios.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		45F519F22106DB9F009ED5EC /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		45F51A002106DCF5009ED5EC /* Frameworks */ = {
+		45B2897E2108A00200439499 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -104,93 +92,113 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		45F519B32106376A009ED5EC = {
+		45B2893D21089D2600439499 = {
 			isa = PBXGroup;
 			children = (
-				45F519BE2106376A009ED5EC /* login_client_ios */,
-				45F51A042106DCF5009ED5EC /* login_client_cpp */,
-				45F519BD2106376A009ED5EC /* Products */,
+				45B2894821089D2600439499 /* login_client_ios */,
+				45B289822108A00200439499 /* login_client_cpp */,
+				45B2894721089D2600439499 /* Products */,
+				60AC6DAE60AE9F11169CDEE7 /* Pods */,
+				FC59AF5686DE153D00AC3C7E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
-		45F519BD2106376A009ED5EC /* Products */ = {
+		45B2894721089D2600439499 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				45F519BC2106376A009ED5EC /* login_client_ios.app */,
-				45F519F52106DB9F009ED5EC /* cpp */,
-				45F51A032106DCF5009ED5EC /* login_client_cpp */,
+				45B2894621089D2600439499 /* login_client_ios.app */,
+				45B289812108A00200439499 /* login_client_cpp */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		45F519BE2106376A009ED5EC /* login_client_ios */ = {
+		45B2894821089D2600439499 /* login_client_ios */ = {
 			isa = PBXGroup;
 			children = (
-				45F51A192106E09C009ED5EC /* Bridge */,
-				45F51A102106DFBC009ED5EC /* Djinni */,
-				45F519BF2106376A009ED5EC /* AppDelegate.h */,
-				45F519C02106376A009ED5EC /* AppDelegate.m */,
-				45F519C22106376A009ED5EC /* ViewController.h */,
-				45F519C32106376A009ED5EC /* ViewController.m */,
-				45F519C52106376A009ED5EC /* Main.storyboard */,
-				45F519C82106376B009ED5EC /* Assets.xcassets */,
-				45F519CA2106376B009ED5EC /* LaunchScreen.storyboard */,
-				45F519CD2106376B009ED5EC /* Info.plist */,
-				45F519CE2106376B009ED5EC /* main.mm */,
-				45F519E12106CD11009ED5EC /* XLBasePageController.h */,
-				45F519E22106CD11009ED5EC /* XLBasePageController.m */,
-				45F519E42106CF9E009ED5EC /* LoginVCViewController.h */,
-				45F519E52106CF9E009ED5EC /* LoginVCViewController.m */,
-				45F519E72106CFD2009ED5EC /* RegisterVCViewController.h */,
-				45F519E82106CFD2009ED5EC /* RegisterVCViewController.m */,
+				45B2896B21089E3D00439499 /* Bridge */,
+				45B2896A21089E3100439499 /* Djinni */,
+				45B2896221089DC900439499 /* LoginVCViewController.h */,
+				45B2896321089DC900439499 /* LoginVCViewController.m */,
+				45B2895F21089DC800439499 /* main.mm */,
+				45B2896021089DC800439499 /* RegisterVCViewController.h */,
+				45B2896121089DC800439499 /* RegisterVCViewController.m */,
+				45B2896521089DC900439499 /* XLBasePageController.h */,
+				45B2896421089DC900439499 /* XLBasePageController.m */,
+				45B2894921089D2600439499 /* AppDelegate.h */,
+				45B2894A21089D2600439499 /* AppDelegate.m */,
+				45B2894C21089D2600439499 /* ViewController.h */,
+				45B2894D21089D2600439499 /* ViewController.m */,
+				45B2894F21089D2600439499 /* Main.storyboard */,
+				45B2895221089D2800439499 /* Assets.xcassets */,
+				45B2895421089D2800439499 /* LaunchScreen.storyboard */,
+				45B2895721089D2800439499 /* Info.plist */,
 			);
 			path = login_client_ios;
 			sourceTree = "<group>";
 		};
-		45F51A042106DCF5009ED5EC /* login_client_cpp */ = {
+		45B2896A21089E3100439499 /* Djinni */ = {
 			isa = PBXGroup;
 			children = (
-				45F51A0D2106DD2C009ED5EC /* hello_world.hpp */,
-				45F51A0B2106DD19009ED5EC /* hello_world_impl.cpp */,
-				45F51A0A2106DD19009ED5EC /* hello_world_impl.hpp */,
-				45F51A052106DCF5009ED5EC /* main.cpp */,
-			);
-			path = login_client_cpp;
-			sourceTree = "<group>";
-		};
-		45F51A102106DFBC009ED5EC /* Djinni */ = {
-			isa = PBXGroup;
-			children = (
-				45F51A152106E002009ED5EC /* DJICppWrapperCache+Private.h */,
-				45F51A142106E002009ED5EC /* DJIError.h */,
-				45F51A112106E001009ED5EC /* DJIError.mm */,
-				45F51A122106E001009ED5EC /* DJIMarshal+Private.h */,
-				45F51A162106E002009ED5EC /* DJIObjcWrapperCache+Private.h */,
-				45F51A132106E001009ED5EC /* DJIProxyCaches.mm */,
+				45B2897921089F2F00439499 /* DJICppWrapperCache+Private.h */,
+				45B2897821089F2F00439499 /* DJIError.h */,
+				45B2897521089F2F00439499 /* DJIError.mm */,
+				45B2897621089F2F00439499 /* DJIMarshal+Private.h */,
+				45B2897A21089F2F00439499 /* DJIObjcWrapperCache+Private.h */,
+				45B2897721089F2F00439499 /* DJIProxyCaches.mm */,
 			);
 			path = Djinni;
 			sourceTree = "<group>";
 		};
-		45F51A192106E09C009ED5EC /* Bridge */ = {
+		45B2896B21089E3D00439499 /* Bridge */ = {
 			isa = PBXGroup;
 			children = (
-				45F51A1C2106E0C2009ED5EC /* HWHelloWorld.h */,
-				45F51A1B2106E0C2009ED5EC /* HWHelloWorld+Private.h */,
-				45F51A1A2106E0C2009ED5EC /* HWHelloWorld+Private.mm */,
+				45B2897121089F0800439499 /* LSSCrypto.h */,
+				45B2897221089F0800439499 /* LSSCrypto+Private.h */,
+				45B2897321089F0800439499 /* LSSCrypto+Private.mm */,
 			);
 			path = Bridge;
+			sourceTree = "<group>";
+		};
+		45B289822108A00200439499 /* login_client_cpp */ = {
+			isa = PBXGroup;
+			children = (
+				45B2898B2108A0A200439499 /* crypto.hpp */,
+				45B289892108A09700439499 /* crypto_impl.cpp */,
+				45B289882108A09700439499 /* crypto_impl.hpp */,
+				45B289832108A00200439499 /* main.m */,
+			);
+			path = login_client_cpp;
+			sourceTree = "<group>";
+		};
+		60AC6DAE60AE9F11169CDEE7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C4568021E1594E0C76EDDC6E /* Pods-login_client_ios.debug.xcconfig */,
+				10B52CE468E7095516F94C19 /* Pods-login_client_ios.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		FC59AF5686DE153D00AC3C7E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4EFB8BF08261A251F4FC3DF4 /* libPods-login_client_ios.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		45F519BB2106376A009ED5EC /* login_client_ios */ = {
+		45B2894521089D2600439499 /* login_client_ios */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 45F519D22106376B009ED5EC /* Build configuration list for PBXNativeTarget "login_client_ios" */;
+			buildConfigurationList = 45B2895C21089D2800439499 /* Build configuration list for PBXNativeTarget "login_client_ios" */;
 			buildPhases = (
-				45F519B82106376A009ED5EC /* Sources */,
-				45F519B92106376A009ED5EC /* Frameworks */,
-				45F519BA2106376A009ED5EC /* Resources */,
+				A5CFBE6FBC7AFD1ABE64E2CF /* [CP] Check Pods Manifest.lock */,
+				45B2894221089D2600439499 /* Sources */,
+				45B2894321089D2600439499 /* Frameworks */,
+				45B2894421089D2600439499 /* Resources */,
+				42E69C3FA3335DECDF935586 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -198,33 +206,16 @@
 			);
 			name = login_client_ios;
 			productName = login_client_ios;
-			productReference = 45F519BC2106376A009ED5EC /* login_client_ios.app */;
+			productReference = 45B2894621089D2600439499 /* login_client_ios.app */;
 			productType = "com.apple.product-type.application";
 		};
-		45F519F42106DB9F009ED5EC /* cpp */ = {
+		45B289802108A00200439499 /* login_client_cpp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 45F519F92106DB9F009ED5EC /* Build configuration list for PBXNativeTarget "cpp" */;
+			buildConfigurationList = 45B289872108A00200439499 /* Build configuration list for PBXNativeTarget "login_client_cpp" */;
 			buildPhases = (
-				45F519F12106DB9F009ED5EC /* Sources */,
-				45F519F22106DB9F009ED5EC /* Frameworks */,
-				45F519F32106DB9F009ED5EC /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = cpp;
-			productName = cpp;
-			productReference = 45F519F52106DB9F009ED5EC /* cpp */;
-			productType = "com.apple.product-type.tool";
-		};
-		45F51A022106DCF5009ED5EC /* login_client_cpp */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 45F51A072106DCF5009ED5EC /* Build configuration list for PBXNativeTarget "login_client_cpp" */;
-			buildPhases = (
-				45F519FF2106DCF5009ED5EC /* Sources */,
-				45F51A002106DCF5009ED5EC /* Frameworks */,
-				45F51A012106DCF5009ED5EC /* CopyFiles */,
+				45B2897D2108A00200439499 /* Sources */,
+				45B2897E2108A00200439499 /* Frameworks */,
+				45B2897F2108A00200439499 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -232,30 +223,27 @@
 			);
 			name = login_client_cpp;
 			productName = login_client_cpp;
-			productReference = 45F51A032106DCF5009ED5EC /* login_client_cpp */;
+			productReference = 45B289812108A00200439499 /* login_client_cpp */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		45F519B42106376A009ED5EC /* Project object */ = {
+		45B2893E21089D2600439499 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "jingwei cai";
 				TargetAttributes = {
-					45F519BB2106376A009ED5EC = {
+					45B2894521089D2600439499 = {
 						CreatedOnToolsVersion = 9.4.1;
 					};
-					45F519F42106DB9F009ED5EC = {
-						CreatedOnToolsVersion = 9.4.1;
-					};
-					45F51A022106DCF5009ED5EC = {
+					45B289802108A00200439499 = {
 						CreatedOnToolsVersion = 9.4.1;
 					};
 				};
 			};
-			buildConfigurationList = 45F519B72106376A009ED5EC /* Build configuration list for PBXProject "login_client_ios" */;
+			buildConfigurationList = 45B2894121089D2600439499 /* Build configuration list for PBXProject "login_client_ios" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -263,80 +251,111 @@
 				en,
 				Base,
 			);
-			mainGroup = 45F519B32106376A009ED5EC;
-			productRefGroup = 45F519BD2106376A009ED5EC /* Products */;
+			mainGroup = 45B2893D21089D2600439499;
+			productRefGroup = 45B2894721089D2600439499 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				45F519BB2106376A009ED5EC /* login_client_ios */,
-				45F519F42106DB9F009ED5EC /* cpp */,
-				45F51A022106DCF5009ED5EC /* login_client_cpp */,
+				45B2894521089D2600439499 /* login_client_ios */,
+				45B289802108A00200439499 /* login_client_cpp */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		45F519BA2106376A009ED5EC /* Resources */ = {
+		45B2894421089D2600439499 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45F519CC2106376B009ED5EC /* LaunchScreen.storyboard in Resources */,
-				45F519C92106376B009ED5EC /* Assets.xcassets in Resources */,
-				45F519C72106376A009ED5EC /* Main.storyboard in Resources */,
+				45B2895621089D2800439499 /* LaunchScreen.storyboard in Resources */,
+				45B2895321089D2800439499 /* Assets.xcassets in Resources */,
+				45B2895121089D2600439499 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		42E69C3FA3335DECDF935586 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-login_client_ios/Pods-login_client_ios-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/gRPC/gRPCCertificates.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/gRPCCertificates.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-login_client_ios/Pods-login_client_ios-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A5CFBE6FBC7AFD1ABE64E2CF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-login_client_ios-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
-		45F519B82106376A009ED5EC /* Sources */ = {
+		45B2894221089D2600439499 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45F51A0F2106DF76009ED5EC /* hello_world_impl.cpp in Sources */,
-				45F519E62106CF9E009ED5EC /* LoginVCViewController.m in Sources */,
-				45F51A1D2106E0C2009ED5EC /* HWHelloWorld+Private.mm in Sources */,
-				45F51A182106E002009ED5EC /* DJIProxyCaches.mm in Sources */,
-				45F519E32106CD11009ED5EC /* XLBasePageController.m in Sources */,
-				45F519C42106376A009ED5EC /* ViewController.m in Sources */,
-				45F51A172106E002009ED5EC /* DJIError.mm in Sources */,
-				45F519CF2106376B009ED5EC /* main.mm in Sources */,
-				45F519E92106CFD2009ED5EC /* RegisterVCViewController.m in Sources */,
-				45F519C12106376A009ED5EC /* AppDelegate.m in Sources */,
+				45B2898C2108A0AF00439499 /* crypto_impl.cpp in Sources */,
+				45B2896921089DC900439499 /* XLBasePageController.m in Sources */,
+				45B2896621089DC900439499 /* main.mm in Sources */,
+				45B2894E21089D2600439499 /* ViewController.m in Sources */,
+				45B2896821089DC900439499 /* LoginVCViewController.m in Sources */,
+				45B2897B21089F2F00439499 /* DJIError.mm in Sources */,
+				45B2897C21089F2F00439499 /* DJIProxyCaches.mm in Sources */,
+				45B2897421089F0800439499 /* LSSCrypto+Private.mm in Sources */,
+				45B2894B21089D2600439499 /* AppDelegate.m in Sources */,
+				45B2896721089DC900439499 /* RegisterVCViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		45F519F12106DB9F009ED5EC /* Sources */ = {
+		45B2897D2108A00200439499 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		45F519FF2106DCF5009ED5EC /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				45F51A062106DCF5009ED5EC /* main.cpp in Sources */,
-				45F51A0C2106DD19009ED5EC /* hello_world_impl.cpp in Sources */,
+				45B2898A2108A09700439499 /* crypto_impl.cpp in Sources */,
+				45B289842108A00200439499 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		45F519C52106376A009ED5EC /* Main.storyboard */ = {
+		45B2894F21089D2600439499 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				45F519C62106376A009ED5EC /* Base */,
+				45B2895021089D2600439499 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		45F519CA2106376B009ED5EC /* LaunchScreen.storyboard */ = {
+		45B2895421089D2800439499 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				45F519CB2106376B009ED5EC /* Base */,
+				45B2895521089D2800439499 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -344,7 +363,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		45F519D02106376B009ED5EC /* Debug */ = {
+		45B2895A21089D2800439499 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -402,7 +421,7 @@
 			};
 			name = Debug;
 		};
-		45F519D12106376B009ED5EC /* Release */ = {
+		45B2895B21089D2800439499 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -454,8 +473,9 @@
 			};
 			name = Release;
 		};
-		45F519D32106376B009ED5EC /* Debug */ = {
+		45B2895D21089D2800439499 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C4568021E1594E0C76EDDC6E /* Pods-login_client_ios.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -470,8 +490,9 @@
 			};
 			name = Debug;
 		};
-		45F519D42106376B009ED5EC /* Release */ = {
+		45B2895E21089D2800439499 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 10B52CE468E7095516F94C19 /* Pods-login_client_ios.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -486,7 +507,7 @@
 			};
 			name = Release;
 		};
-		45F519FA2106DB9F009ED5EC /* Debug */ = {
+		45B289852108A00200439499 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
@@ -497,29 +518,7 @@
 			};
 			name = Debug;
 		};
-		45F519FB2106DB9F009ED5EC /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-			};
-			name = Release;
-		};
-		45F51A082106DCF5009ED5EC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-			};
-			name = Debug;
-		};
-		45F51A092106DCF5009ED5EC /* Release */ = {
+		45B289862108A00200439499 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
@@ -533,43 +532,34 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		45F519B72106376A009ED5EC /* Build configuration list for PBXProject "login_client_ios" */ = {
+		45B2894121089D2600439499 /* Build configuration list for PBXProject "login_client_ios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				45F519D02106376B009ED5EC /* Debug */,
-				45F519D12106376B009ED5EC /* Release */,
+				45B2895A21089D2800439499 /* Debug */,
+				45B2895B21089D2800439499 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		45F519D22106376B009ED5EC /* Build configuration list for PBXNativeTarget "login_client_ios" */ = {
+		45B2895C21089D2800439499 /* Build configuration list for PBXNativeTarget "login_client_ios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				45F519D32106376B009ED5EC /* Debug */,
-				45F519D42106376B009ED5EC /* Release */,
+				45B2895D21089D2800439499 /* Debug */,
+				45B2895E21089D2800439499 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		45F519F92106DB9F009ED5EC /* Build configuration list for PBXNativeTarget "cpp" */ = {
+		45B289872108A00200439499 /* Build configuration list for PBXNativeTarget "login_client_cpp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				45F519FA2106DB9F009ED5EC /* Debug */,
-				45F519FB2106DB9F009ED5EC /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		45F51A072106DCF5009ED5EC /* Build configuration list for PBXNativeTarget "login_client_cpp" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				45F51A082106DCF5009ED5EC /* Debug */,
-				45F51A092106DCF5009ED5EC /* Release */,
+				45B289852108A00200439499 /* Debug */,
+				45B289862108A00200439499 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 45F519B42106376A009ED5EC /* Project object */;
+	rootObject = 45B2893E21089D2600439499 /* Project object */;
 }

@@ -1,15 +1,26 @@
 syntax = "proto3";
 
+option objc_class_prefix = "LSS";
+
 package login_system;
 
 // The greeting service definition.
 service LoginSystem {
+	//test hello
+	rpc hello (helloRequest) returns (helloResponse) {}
 	//注册接口
 	rpc registerAccount (registerRequest) returns (registerResponse) {}
 	//登录接口
 	rpc loginAccount (loginRequest) returns (loginResponse) {}
 	//session ticket 校验接口
 	rpc verifyST (verifySTRequest) returns (verifySTResponse) {}
+}
+
+message helloRequest {
+	string helloClient = 1;
+}
+message helloResponse {
+	string helloServer = 1;
 }
 
 message registerRequest {
