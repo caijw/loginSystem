@@ -3,6 +3,7 @@
 #include <string>
 #include <sstream>
 #include <fstream>
+#include <map>
 #include <grpcpp/grpcpp.h>
 /*mongodb headers begin*/
 #include <bsoncxx/builder/stream/document.hpp>
@@ -16,10 +17,18 @@
 #include "crypto_impl.hpp"
 #include "login_system.grpc.pb.h"
 #include <plog/Log.h> 
+#include "loginStreamManager.h"
+#include <chrono>
+#include <thread>
+
 using grpc::Server;
 using grpc::ServerBuilder;
 using grpc::ServerContext;
+using grpc::ServerReader;
+using grpc::ServerReaderWriter;
+using grpc::ServerWriter;
 using grpc::Status;
+
 using login_system::helloRequest;
 using login_system::helloResponse;
 using login_system::registerRequest;
@@ -44,7 +53,7 @@ std::string K_AS_SS = "K_AS_SS";
 
 
 class LoginSystemServiceImpl final : public LoginSystem::Service {
-
+public:
   Status hello(ServerContext* context, const helloRequest* request,
                   helloResponse* response) override{
     std::string clientHello = request->helloclient();
@@ -97,56 +106,63 @@ class LoginSystemServiceImpl final : public LoginSystem::Service {
     return Status::OK;
   }
   Status loginAccount(ServerContext* context, const loginRequest* request,
-                  loginResponse* response) override{
+                  ServerWriter<loginResponse>* responseWriter) override{
+
+    LoginStreamManager *loginStreamManager = LoginStreamManager::getInstance();
+
+    loginResponse response;
     crypto::CryptoImpl crypto;
     std::string data = request->data();
     std::string user_id = request->user_id();
     LOGD << "login account user_id: " << user_id;
-
-    std::string data_user_id = data.substr(0, 10);
-    std::string data_timestamp = data.substr(0, 10);
-
+    LOGD << "before dec:" << data;
     auto user_info_collection = Database::getInstance()->getCollection("user_info");
     auto query = document{}
       << "user_id" << user_id
       << finalize;
+
     auto find_ret = user_info_collection.find_one(query.view());
+
     if(find_ret){
       auto find_view = find_ret->view();
       auto iter_hash = find_view.find("hash");
       auto iter_seq = find_view.find("seq");
       std::string hash(iter_hash->get_utf8().value);
 
-      /*verify req data*/
+      /*decode req data*/
       data = crypto.AESDec(data, hash);
-      size_t tmp = 0;
-      tmp = data_user_id.find_first_not_of('x', 0);
-      data_user_id = data_user_id.substr(tmp, data_user_id.size() - tmp);
-      tmp = data_timestamp.find_first_not_of('x', 0);
-      data_timestamp = data_timestamp.substr(tmp, data_timestamp.size() - tmp);
+      LOGD << "after dec:" << data;
+      /*get the user id */
+      std::string data_user_id = data.substr(0, 10);
+      /*get the timestamp*/
+      std::string data_timestamp = data.substr(10, 20);
+      /*remove padding x*/
+
+      LOGD << "data_user_id: " << data_user_id << " data_timestamp: " << data_timestamp;
+
+      data_user_id = crypto.deStringWithFixedLength(data_user_id, "x");
+      data_timestamp = crypto.deStringWithFixedLength(data_timestamp, "x");
+
       if(user_id != data_user_id){
-        response->set_ret(-7);
-        response->set_msg("error");
-        response->set_st("");
-      }else{
-        LOGD << "cur seq:" << iter_seq->get_int32().value;
+        response.set_ret(-7);
+        response.set_msg("error user id");
+        response.set_st("");
+        response.set_logout(false);
+        responseWriter->Write(response);
+       }else{
         int seq = iter_seq->get_int32().value;
-        LOGD << "login seq: " << seq;
+        LOGD << "cur seq:" << seq;
         std::string tmp_user_id = user_id;
         std::string timestamp = std::to_string(currentTimeSecond());
         std::string nextSeq = std::to_string(seq + 1);
-        /*fixed length*/
-        for(decltype(user_id.size()) i = 0; i < (10 - user_id.size()); ++i){
-          tmp_user_id = "x" + tmp_user_id;
-        }
-        /*fixed length*/
-        for(decltype(timestamp.size()) i = 0; i < (10 - timestamp.size()); ++i){
-          timestamp = "x" + timestamp;
-        }
-        /*fixed length*/
-        for(decltype(nextSeq.size()) i = 0; i < (5 - nextSeq.size()); ++i){
-          nextSeq = "x" + nextSeq;
-        }
+
+        /*fixed length with padding*/
+        tmp_user_id = crypto.stringWithFixedLength(tmp_user_id, 10, "x");
+        /*fixed length with padding*/
+        timestamp = crypto.stringWithFixedLength(timestamp, 10, "x");
+        /*fixed length with padding*/
+        nextSeq = crypto.stringWithFixedLength(nextSeq, 5, "x");
+
         std::string ST = crypto.AESEnc(tmp_user_id + timestamp + nextSeq, K_AS_SS);
 
         auto query = document{}
@@ -160,23 +176,49 @@ class LoginSystemServiceImpl final : public LoginSystem::Service {
           << finalize;
         auto update_ret = user_info_collection.update_one(query.view(), update.view());
         if(update_ret && update_ret->modified_count() == 1){
-          response->set_ret(0);
-          response->set_msg("login success");
-          response->set_st(ST);
+          response.set_ret(0);
+          response.set_msg("login success");
+          response.set_st(ST);
+          response.set_logout(false);
+          responseWriter->Write(response);
+          /*loginStreamManager update seq*/
+          loginStreamManager->update(user_id, seq + 1);
+          /*long-long-time stream, ends up until another client logins*/
+          while(true){
+            int tmpSeq = loginStreamManager->get(user_id);
+            if(tmpSeq != (seq + 1)){
+              /*end up the stream and ask the client to logout*/
+              loginResponse endResponse;
+              endResponse.set_ret(-10);
+              endResponse.set_msg("invalid login");
+              endResponse.set_st("");
+              endResponse.set_logout(true);
+              break;
+            }else{
+              /*have a sleep*/
+              std::chrono::milliseconds dura(50);
+              std::this_thread::sleep_for(dura);
+            }
+          }
+
+
         }else{
-          response->set_ret(-4);
-          response->set_msg("error, update seq");
-          response->set_st("");
+          response.set_ret(-4);
+          response.set_msg("error, update seq");
+          response.set_st("");
+          response.set_logout(false);
+          responseWriter->Write(response);
         }
       }
-
-
-
     }else{
-      response->set_ret(-3);
-      response->set_msg("error, account not exist.");
-      response->set_st("");
+      LOGD << "not found user id: " << user_id;
+      response.set_ret(-3);
+      response.set_msg("error, account not exist.");
+      response.set_st("");
+      response.set_logout(false);
+      responseWriter->Write(response);
     }
+    
     return Status::OK;
   }
   Status verifyST(ServerContext* context, const verifySTRequest* request,
@@ -229,6 +271,10 @@ class LoginSystemServiceImpl final : public LoginSystem::Service {
     }
     return Status::OK;
   }
+
+private:
+  std::map<std::string, ServerWriter<loginResponse>*> loginResponseMap;
+
 };
 void RunServer(int argc, char** argv) {
   std::string server_address("0.0.0.0:50051");
@@ -278,6 +324,8 @@ int main(int argc, char** argv) {
   plog::init(plog::debug, "./server_log.log");
   /*init database*/
   Database::getInstance()->setDb("mongodb://localhost:27017", "login_system");
+
+  LoginStreamManager *loginStreamManager = LoginStreamManager::getInstance();
 
   RunServer(argc, argv);
 

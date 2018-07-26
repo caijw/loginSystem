@@ -1,12 +1,12 @@
 [submodule "deps/djinni"]
 	path = deps/djinni
-	url = git@github.com:dropbox/djinni.git
+	url = https://github.com/dropbox/djinni.git
 [submodule "deps/cryptopp"]
 	path = deps/cryptopp
-	url = git@github.com:weidai11/cryptopp.git
+	url = https://github.com/weidai11/cryptopp.git
 [submodule "deps/plog"]
 	path = deps/plog
-	url = git@github.com:SergiusTheBest/plog.git
+	url = https://github.com/SergiusTheBest/plog.git
 [submodule "deps/argon2"]
 	path = deps/argon2
-	url = git@github.com:P-H-C/phc-winner-argon2.git
+	url = https://github.com/P-H-C/phc-winner-argon2.git

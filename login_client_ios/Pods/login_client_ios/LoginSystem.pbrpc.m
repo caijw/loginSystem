@@ -66,23 +66,23 @@
              responseClass:[LSSregisterResponse class]
         responsesWriteable:[GRXWriteable writeableWithSingleHandler:handler]];
 }
-#pragma mark loginAccount(loginRequest) returns (loginResponse)
+#pragma mark loginAccount(loginRequest) returns (stream loginResponse)
 
 /**
  * 登录接口
  */
-- (void)loginAccountWithRequest:(LSSloginRequest *)request handler:(void(^)(LSSloginResponse *_Nullable response, NSError *_Nullable error))handler{
-  [[self RPCTologinAccountWithRequest:request handler:handler] start];
+- (void)loginAccountWithRequest:(LSSloginRequest *)request eventHandler:(void(^)(BOOL done, LSSloginResponse *_Nullable response, NSError *_Nullable error))eventHandler{
+  [[self RPCTologinAccountWithRequest:request eventHandler:eventHandler] start];
 }
 // Returns a not-yet-started RPC object.
 /**
  * 登录接口
  */
-- (GRPCProtoCall *)RPCTologinAccountWithRequest:(LSSloginRequest *)request handler:(void(^)(LSSloginResponse *_Nullable response, NSError *_Nullable error))handler{
+- (GRPCProtoCall *)RPCTologinAccountWithRequest:(LSSloginRequest *)request eventHandler:(void(^)(BOOL done, LSSloginResponse *_Nullable response, NSError *_Nullable error))eventHandler{
   return [self RPCToMethod:@"loginAccount"
             requestsWriter:[GRXWriter writerWithValue:request]
              responseClass:[LSSloginResponse class]
-        responsesWriteable:[GRXWriteable writeableWithSingleHandler:handler]];
+        responsesWriteable:[GRXWriteable writeableWithEventHandler:eventHandler]];
 }
 #pragma mark verifyST(verifySTRequest) returns (verifySTResponse)
 

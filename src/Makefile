@@ -25,7 +25,7 @@ PROTOS_PATH = ../protos
 
 vpath %.proto $(PROTOS_PATH)
 
-all: client server
+all: server
 
 client: login_system.pb.o login_system.grpc.pb.o crypto_impl.o client.o
 	$(CXX) $^ $(LDFLAGS) -o $@
@@ -35,7 +35,7 @@ client: login_system.pb.o login_system.grpc.pb.o crypto_impl.o client.o
 	cp *.crt ../out/;					\
 	cp *.csr ../out/;					\
 	cp *.key ../out/;
-server: login_system.pb.o login_system.grpc.pb.o user_id.o Database.o crypto_impl.o server.o
+server: login_system.pb.o login_system.grpc.pb.o user_id.o Database.o crypto_impl.o loginStreamManager.o  server.o
 	$(CXX) $^ $(LDFLAGS) -o $@
 	@[ -d ../out ] || mkdir ../out;		\
 	cp server ../out/server;			\

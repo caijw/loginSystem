@@ -128,6 +128,7 @@ typedef GPB_ENUM(LSSloginResponse_FieldNumber) {
   LSSloginResponse_FieldNumber_Ret = 1,
   LSSloginResponse_FieldNumber_Msg = 2,
   LSSloginResponse_FieldNumber_St = 3,
+  LSSloginResponse_FieldNumber_Logout = 4,
 };
 
 @interface LSSloginResponse : GPBMessage
@@ -137,6 +138,8 @@ typedef GPB_ENUM(LSSloginResponse_FieldNumber) {
 @property(nonatomic, readwrite, copy, null_resettable) NSString *msg;
 
 @property(nonatomic, readwrite, copy, null_resettable) NSString *st;
+
+@property(nonatomic, readwrite) BOOL logout;
 
 @end
 

@@ -9,9 +9,9 @@ service LoginSystem {
 	//test hello
 	rpc hello (helloRequest) returns (helloResponse) {}
 	//注册接口
-	rpc registerAccount (registerRequest) returns (stream registerResponse) {}
+	rpc registerAccount (registerRequest) returns (registerResponse) {}
 	//登录接口
-	rpc loginAccount (loginRequest) returns (loginResponse) {}
+	rpc loginAccount (loginRequest) returns (stream loginResponse) {}
 	//session ticket 校验接口
 	rpc verifyST (verifySTRequest) returns (verifySTResponse) {}
 }
@@ -43,6 +43,7 @@ message loginResponse {
 	int32 ret = 1;
 	string msg = 2;
  	string st = 3;
+ 	bool logout = 4;
 }
 
 message verifySTRequest {

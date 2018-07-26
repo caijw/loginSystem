@@ -54,17 +54,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (GRPCProtoCall *)RPCToregisterAccountWithRequest:(LSSregisterRequest *)request handler:(void(^)(LSSregisterResponse *_Nullable response, NSError *_Nullable error))handler;
 
 
-#pragma mark loginAccount(loginRequest) returns (loginResponse)
+#pragma mark loginAccount(loginRequest) returns (stream loginResponse)
 
 /**
  * 登录接口
  */
-- (void)loginAccountWithRequest:(LSSloginRequest *)request handler:(void(^)(LSSloginResponse *_Nullable response, NSError *_Nullable error))handler;
+- (void)loginAccountWithRequest:(LSSloginRequest *)request eventHandler:(void(^)(BOOL done, LSSloginResponse *_Nullable response, NSError *_Nullable error))eventHandler;
 
 /**
  * 登录接口
  */
-- (GRPCProtoCall *)RPCTologinAccountWithRequest:(LSSloginRequest *)request handler:(void(^)(LSSloginResponse *_Nullable response, NSError *_Nullable error))handler;
+- (GRPCProtoCall *)RPCTologinAccountWithRequest:(LSSloginRequest *)request eventHandler:(void(^)(BOOL done, LSSloginResponse *_Nullable response, NSError *_Nullable error))eventHandler;
 
 
 #pragma mark verifyST(verifySTRequest) returns (verifySTResponse)

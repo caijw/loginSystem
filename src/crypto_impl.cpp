@@ -18,19 +18,26 @@ namespace crypto {
     }
 
     std::string CryptoImpl::argon2(const std::string & message, int32_t t_cost, int32_t m_cost, int32_t parallelism, const std::string & salt){
-        /*todo: argon2 enc*/
-        std::string res = "01234567890123456789012345678901";
+        /*todo: argon2 hash*/
+        std::string res = message;
         return res;
     }
 
     std::string CryptoImpl::AESEnc(const std::string & message, const std::string & key){
-        /*todo*/
-        return message;
+        /*todo aes encode*/
+        std::string res = key + message;
+        return res;
     }
 
     std::string CryptoImpl::AESDec(const std::string & message, const std::string & key){
-        /*todo*/
-        return message;
+        /*todo aes decode*/
+        std::string tmp = message.substr(0, key.size());
+        std::string res = message.substr(key.size(), message.size());
+        if(tmp == key){
+            return res;
+        }else{
+            return "00000000000000000000000000000000000000";
+        }
     }
 
     std::string CryptoImpl::stringWithFixedLength(const std::string & origin, int32_t length, const std::string & padding){

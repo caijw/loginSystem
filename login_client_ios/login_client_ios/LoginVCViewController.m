@@ -16,7 +16,8 @@ extern NSString *ST;
 @property (strong, nonatomic) UITextView *uid_text;
 @property (strong, nonatomic) UILabel *psw_label;
 @property (strong, nonatomic) UITextView *psw_text;
-@property (strong, nonatomic) UIButton *confirm_btn;
+@property (strong, nonatomic) UIButton *confirm_login_btn;
+@property (strong, nonatomic) UIButton *confirm_logout_btn;
 @end
 
 @implementation LoginVCViewController
@@ -42,24 +43,32 @@ extern NSString *ST;
     self.psw_text.frame = CGRectMake(20, 250, 200, 30);
     self.psw_text.backgroundColor = [UIColor lightGrayColor];
     
-    self.confirm_btn = [[UIButton alloc] init];
-    [self.confirm_btn setTitle:@"go login" forState:UIControlStateNormal];
-    [self.confirm_btn setTitle:@"go login" forState:UIControlStateHighlighted];
-    [self.confirm_btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.confirm_btn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
-    self.confirm_btn.backgroundColor = [UIColor lightGrayColor];
-    self.confirm_btn.frame = CGRectMake(80, 300, 100, 30);
+    self.confirm_login_btn = [[UIButton alloc] init];
+    [self.confirm_login_btn setTitle:@"go login" forState:UIControlStateNormal];
+    [self.confirm_login_btn setTitle:@"go login" forState:UIControlStateHighlighted];
+    [self.confirm_login_btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.confirm_login_btn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    self.confirm_login_btn.backgroundColor = [UIColor lightGrayColor];
+    self.confirm_login_btn.frame = CGRectMake(80, 300, 100, 30);
     
-    [self.confirm_btn addTarget:self action:@selector(goLogin:) forControlEvents:UIControlEventTouchUpInside];
+    self.confirm_logout_btn = [[UIButton alloc] init];
+    [self.confirm_logout_btn setTitle:@"go logout" forState:UIControlStateNormal];
+    [self.confirm_logout_btn setTitle:@"go logout" forState:UIControlStateHighlighted];
+    [self.confirm_logout_btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.confirm_logout_btn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    self.confirm_logout_btn.backgroundColor = [UIColor lightGrayColor];
+    self.confirm_logout_btn.frame = CGRectMake(80, 350, 100, 30);
+    
+    [self.confirm_login_btn addTarget:self action:@selector(goLogin:) forControlEvents:UIControlEventTouchUpInside];
 
+//    [self.confirm_logout_btn addTarget:self action:@selector(goLogin:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:self.uid_label];
     [self.view addSubview:self.uid_text];
     [self.view addSubview:self.psw_label];
     [self.view addSubview:self.psw_text];
-    [self.view addSubview:self.confirm_btn];
-
-    
+    [self.view addSubview:self.confirm_login_btn];
+//    [self.view addSubview:self.confirm_logout_btn];
 
 }
 
@@ -86,29 +95,63 @@ extern NSString *ST;
     NSString *padding = @"x";
     NSString *tmp_uid = [_cpp_crypto_api stringWithFixedLength:uid length:10 padding:padding];
     NSString *tmp_timestamp = [_cpp_crypto_api stringWithFixedLength:timestamp length:10 padding:padding];
-    
+    NSLog(@"hash: %@, tmp_uid: %@, tmp_timestamp: %@", hash, tmp_uid, tmp_timestamp);
     NSString *data = [_cpp_crypto_api AESEnc:[NSString stringWithFormat:@"%@%@", tmp_uid, tmp_timestamp]  key:hash];
+    NSLog(@"hash: %@, data: %@", hash, data);
     LSSloginRequest *request = [LSSloginRequest message];
     request.data_p =  data;
     request.userId = uid;
-
-    [loginClient loginAccountWithRequest:request handler:^(LSSloginResponse *response, NSError *error) {
-        int32_t ret = response.ret;
-        NSString *msg = response.msg;
-        ST = response.st;
-        if(ret == 0){
+    NSLog(@"userId: %@; data: %@", uid, data);
+    
+    [loginClient loginAccountWithRequest:request eventHandler:^(BOOL done,  LSSloginResponse *response, NSError *error) {
+        if(response){
+            int32_t ret = response.ret;
+            NSString *msg = response.msg;
+            BOOL logout = response.logout;
+            NSString *tmpST = response.st;
+            if(logout){
+                /*force to logout*/
+                ST = @"";
+                UIAlertController *alertMessage;
+                alertMessage = [UIAlertController alertControllerWithTitle: @"退出登录"   message:@"有其他设备登录了该账户" preferredStyle:UIAlertControllerStyleAlert];
+                [alertMessage addAction:[UIAlertAction actionWithTitle:@"comfirm" style:UIAlertActionStyleDefault handler:nil]];
+                
+                [self presentViewController:alertMessage animated:YES completion:nil];
+                
+            }else if(ret == 0 && tmpST){
+                ST = tmpST;
+                UIAlertController *alertMessage;
+                alertMessage = [UIAlertController alertControllerWithTitle: @"登录成功"   message:[NSString stringWithFormat:@"%@%@", @"session ticket:", ST] preferredStyle:UIAlertControllerStyleAlert];
+                [alertMessage addAction:[UIAlertAction actionWithTitle:@"comfirm" style:UIAlertActionStyleDefault handler:nil]];
+                
+                [self presentViewController:alertMessage animated:YES completion:nil];
+            }else{
+                UIAlertController *alertMessage;
+                alertMessage = [UIAlertController alertControllerWithTitle: @"登录失败"   message:[NSString stringWithFormat:@"%@%d%@%@", @"ret:", ret, @";msg:", msg] preferredStyle:UIAlertControllerStyleAlert];
+                [alertMessage addAction:[UIAlertAction actionWithTitle:@"comfirm" style:UIAlertActionStyleDefault handler:nil]];
+                
+                [self presentViewController:alertMessage animated:YES completion:nil];
+            }
+        }else if(error){
+            ST = @"";
+            NSString *str =[NSString stringWithFormat:@"RPC error: %@", error];
+            NSLog(@"RPC error: %@", error);
             UIAlertController *alertMessage;
-            alertMessage = [UIAlertController alertControllerWithTitle: @"登录成功"   message:[NSString stringWithFormat:@"%@%@", @"session ticket:", ST] preferredStyle:UIAlertControllerStyleAlert];
+            alertMessage = [UIAlertController alertControllerWithTitle: @"登录失败"   message:str preferredStyle:UIAlertControllerStyleAlert];
             [alertMessage addAction:[UIAlertAction actionWithTitle:@"comfirm" style:UIAlertActionStyleDefault handler:nil]];
             
             [self presentViewController:alertMessage animated:YES completion:nil];
-        }else{
+        }else if(done){
+            ST = @"";
+            NSString *str = @"登录结束";
+            NSLog(@"login finish: %@", str);
             UIAlertController *alertMessage;
-            alertMessage = [UIAlertController alertControllerWithTitle: @"登录失败"   message:[NSString stringWithFormat:@"%@%d%@%@", @"ret:", ret, @";msg:", msg] preferredStyle:UIAlertControllerStyleAlert];
+            alertMessage = [UIAlertController alertControllerWithTitle: @"登录"   message:str preferredStyle:UIAlertControllerStyleAlert];
             [alertMessage addAction:[UIAlertAction actionWithTitle:@"comfirm" style:UIAlertActionStyleDefault handler:nil]];
             
             [self presentViewController:alertMessage animated:YES completion:nil];
         }
+
     }];
     
 }
