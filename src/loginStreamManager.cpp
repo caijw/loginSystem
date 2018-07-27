@@ -23,7 +23,7 @@ void LoginStreamManager::update(std::string uid, int seq){
 }
 
 int LoginStreamManager::get(std::string uid){
-	std::lock_guard<std::mutex> lock(login_user_seq_map_mutex);
+	// std::lock_guard<std::mutex> lock(login_user_seq_map_mutex);   no need to lock when reading the map
 	if(login_user_seq_map.count(uid)){
 		return login_user_seq_map[uid];
 	}else{
