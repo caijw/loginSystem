@@ -18,7 +18,10 @@ public abstract class Crypto {
 
     public abstract String deStringWithFixedLength(String origin, String padding);
 
-    public static native Crypto create();
+    public static Crypto create()
+    {
+        return CppProxy.create();
+    }
 
     private static final class CppProxy extends Crypto
     {
@@ -32,14 +35,14 @@ public abstract class Crypto {
         }
 
         private native void nativeDestroy(long nativeRef);
-        public void destroy()
+        public void _djinni_private_destroy()
         {
             boolean destroyed = this.destroyed.getAndSet(true);
             if (!destroyed) nativeDestroy(this.nativeRef);
         }
         protected void finalize() throws java.lang.Throwable
         {
-            destroy();
+            _djinni_private_destroy();
             super.finalize();
         }
 
@@ -90,5 +93,7 @@ public abstract class Crypto {
             return native_deStringWithFixedLength(this.nativeRef, origin, padding);
         }
         private native String native_deStringWithFixedLength(long _nativeRef, String origin, String padding);
+
+        public static native Crypto create();
     }
 }

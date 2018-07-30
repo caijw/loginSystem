@@ -3,6 +3,9 @@ current_dir := $(notdir $(patsubst %/,%,$(dir $(mkfile_path))))
 
 HOST_SYSTEM = $(shell uname | cut -f 1 -d_)
 SYSTEM ?= $(HOST_SYSTEM)
+
+${warning ${SYSTEM}}
+
 CXX = g++
 CPPFLAGS += `pkg-config --cflags protobuf grpc libmongocxx`
 CXXFLAGS += -std=c++11 -I./../deps/plog/include/ -I./../deps/cryptopp/ -I./../djinni/generated-src/cpp

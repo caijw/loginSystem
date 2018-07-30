@@ -19,7 +19,7 @@ CJNIEXPORT void JNICALL Java_com_mycompany_crypto_Crypto_00024CppProxy_nativeDes
     } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, )
 }
 
-CJNIEXPORT jobject JNICALL Java_com_mycompany_crypto_Crypto_create(JNIEnv* jniEnv, jobject /*this*/)
+CJNIEXPORT jobject JNICALL Java_com_mycompany_crypto_Crypto_00024CppProxy_create(JNIEnv* jniEnv, jobject /*this*/)
 {
     try {
         DJINNI_FUNCTION_PROLOGUE0(jniEnv);
