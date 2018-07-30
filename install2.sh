@@ -19,17 +19,15 @@ fi
 HAS_PLUGIN=`which grpc_cpp_plugin > /dev/null && echo true || echo false`
 
 
-SYSTEM_OK=false
+PROTOC_SYSTEM_OK=`echo false`
 
 if [ ${HAS_VALID_PROTOC} ]
 then
 	if [ ${HAS_PLUGIN} ]
 	then
-		SYSTEM_OK=true
+		PROTOC_SYSTEM_OK=true
 	fi
 fi
-
-
 
 
 mongo_c_driver_path="deps/mongo-c-driver"
@@ -87,13 +85,22 @@ fi
 cd ${grpc_path}
 git submodule update --init
 
-cd third_party/protobuf
-./autogen.sh
-./configure
-make
-make check
-sudo make install
+
+if [ ${PROTOC_SYSTEM_OK} ]
+then
+	echo "protobuf ok."
+else
+	cd third_party/protobuf
+	./autogen.sh
+	./configure
+	make
+	make check
+	sudo make install
+	cd ${root_folder}
+fi
+
 cd ${root_folder}
+
 
 cd ${grpc_path}
 make
