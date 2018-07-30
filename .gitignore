@@ -8,3 +8,5 @@ out/*
 #log file
 log/*
 *.log
+#deps
+deps/*
