@@ -26,11 +26,11 @@ sudo make install
 cd ${root_folder}
 
 #install mongo-cxx-driver
-if [ ! -d ${mongo_cxx_driver_path} ]; then
+#if [ ! -d ${mongo_cxx_driver_path} ]; then
 	
 	#git clone https://github.com/mongodb/mongo-cxx-driver.git ${mongo_cxx_driver_path}  --branch releases/stable --depth 1
 
-fi
+#fi
 cd ${mongo_cxx_driver_path}"/build"
 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local ..
 sudo make EP_mnmlstc_core
@@ -39,13 +39,13 @@ sudo make install
 cd ${root_folder}
 
 #install djinni
-if [ ! -d ${djinni_path} ]; then
+#if [ ! -d ${djinni_path} ]; then
 	#git clone https://github.com/dropbox/djinni.git ${djinni_path}
-fi
+#fi
 
-cd ${djinni_def_path}
-sh ./run_djinni.sh
-cd ${root_folder}
+#cd ${djinni_def_path}
+#sh ./run_djinni.sh
+#cd ${root_folder}
 
 
 #install cocoapods
