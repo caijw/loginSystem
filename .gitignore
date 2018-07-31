@@ -11,4 +11,5 @@ log/*
 #deps
 deps/*
 #bazel
+bazel-*
 bazel-*/
