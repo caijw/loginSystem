@@ -49,7 +49,7 @@
 
 -(UIViewController *)viewPager:(XLBasePageController *)viewPager indexViewControllers:(NSInteger)index
 {
-    if (index == 0) {
+    if (index == 0 || index == 2) {
         //login
         LoginVCViewController *loginVCViewController = [[LoginVCViewController alloc] init];
         loginVCViewController.titleStr = _titleArray[index];

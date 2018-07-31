@@ -199,6 +199,7 @@ public:
               endResponse.set_msg("invalid login");
               endResponse.set_st("");
               endResponse.set_logout(true);
+              responseWriter->Write(endResponse);
               break;
             }else{
               /*have a sleep*/

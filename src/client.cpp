@@ -3,13 +3,20 @@
 #include <string>
 #include <sstream>
 #include <fstream>
-#include <grpcpp/grpcpp.h>
+#include <grpc++/grpc++.h>
+
 #include "crypto_impl.hpp"
-#include "login_system.grpc.pb.h"
+
+#include "protos/login_system.pb.h"
+#include "protos/login_system.grpc.pb.h"
+
 #include "util.h"
-#include <plog/Log.h> 
+
 using grpc::Channel;
 using grpc::ClientContext;
+using grpc::ClientReader;
+using grpc::ClientReaderWriter;
+using grpc::ClientWriter;
 using grpc::Status;
 using login_system::helloRequest;
 using login_system::helloResponse;
@@ -18,6 +25,8 @@ using login_system::registerResponse;
 using login_system::loginRequest;
 using login_system::loginResponse;
 using login_system::LoginSystem;
+
+#define LOGD std::cout 
 
 std::string global_ST;
 
@@ -128,6 +137,7 @@ class Client {
       return;
     }
   }
+
   void loginAccount(){
     crypto::CryptoImpl crypto_util;
     loginRequest request;
@@ -155,34 +165,32 @@ class Client {
     request.set_user_id(user_id);
     request.set_data(data);
 
-    // Container for the data we expect from the server.
     loginResponse response;
-
-    // Context for the client. It could be used to convey extra information to
-    // the server and/or tweak certain RPC behaviors.
     ClientContext context;
 
-    // The actual RPC.
-    Status status = stub_->loginAccount(&context, request, &response);
+    std::unique_ptr<ClientReader<loginResponse> > reader(
+        stub_->loginAccount(&context, request));
+    while (reader->Read(&response)) {
 
-    // Act upon its status.
-    if (status.ok()) {
       int ret = response.ret();
+      std::string ST = response.st();
       std::string msg = response.msg();
-      if(ret == 0){
-        std::string ST = crypto_util.AESDec(response.st(), hash);
-        global_ST = ST;
-        std::cout << "login account success" << std::endl;
-        std::cout << "response.st:" <<  user_id << std::endl;
-      }else{
-        std::cout << "login account fail" << std::endl;
-      }
+      bool logout = response.logout();
 
-      return;
-    } else {
-      std::cout << status.error_code() << ": " << status.error_message() << std::endl;
-      return;
+      LOGD << "ret: " << ret << " msg: " << msg << " st: " << ST << " logout: " << logout << std::endl;
+
+      if(logout){
+        LOGD << "go logout" << std::endl;
+        break;
+      }
     }
+    Status status = reader->Finish();
+    if (status.ok()) {
+      std::cout << "loginAccount rpc succeeded." << std::endl;
+    } else {
+      std::cout << "loginAccount rpc failed." << std::endl;
+    }
+
   }
  private:
   std::unique_ptr<LoginSystem::Stub> stub_;
@@ -193,13 +201,11 @@ class Client {
 
 int main(int argc, char** argv) {
 
-  plog::init(plog::debug, "./client_log.log");
-
   Client client (argc, argv);
 
-  int operation = 0;
-  std::cout << "input your operation type, 1:[register] 2:[login] 3:[hello] 0:[exit]: ";
-  std::cin >> operation;
+  int operation = 2;
+  // std::cout << "input your operation type, 1:[register] 2:[login] 3:[hello] 0:[exit]: ";
+  // std::cin >> operation;
   switch(operation){
     case 1:
       std::cout << "register operation" << std::endl;

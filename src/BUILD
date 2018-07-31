@@ -38,6 +38,16 @@ cc_library(
     deps = ["Database"],
 )
 
+cc_binary(
+  name = "client",
+  srcs = ['client.cpp'],
+  deps = [
+    "//protos:login_system_proto", "util", "crypto_impl"
+  ] + GRPC_COMPILE_DEPS,
+  copts = ["-Idjinni/generated-src/cpp/"],
+  linkopts = ["-L/usr/local/lib", "-lmongocxx", "-lbsoncxx"],
+)
+
 
 
 cc_binary(
