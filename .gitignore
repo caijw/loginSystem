@@ -1,13 +1,3 @@
-#out dir
-out/*
-#grpc and protobuf code
-*.pb.h
-*.pb.cc
-#.o file
-*.o
-#log file
-log/*
-*.log
 #bazel
 bazel-*
 bazel-*/
