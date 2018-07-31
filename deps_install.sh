@@ -13,9 +13,9 @@ djinni_def_path="djinni"
 echo "root_folder: "${root_folder}
 
 # install mongo-c-driver
-if [ ! -d ${mongo_c_driver_path} ]; then
+#if [ ! -d ${mongo_c_driver_path} ]; then
 	#git clone https://github.com/mongodb/mongo-c-driver.git ${mongo_c_driver_path}
-fi
+#fi
 cd ${mongo_c_driver_path}
 git checkout 1.12.0
 mkdir cmake-build
