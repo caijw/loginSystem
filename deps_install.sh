@@ -49,7 +49,7 @@ cd ${root_folder}
 
 
 #install cocoapods
-sudo gem install cocoapods
+#sudo gem install cocoapods
 
-cd login_client_ios
-pod install
+#cd login_client_ios
+#pod install
