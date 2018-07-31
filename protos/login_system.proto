@@ -14,6 +14,10 @@ service LoginSystem {
 	rpc loginAccount (loginRequest) returns (stream loginResponse) {}
 	//session ticket 校验接口
 	rpc verifyST (verifySTRequest) returns (verifySTResponse) {}
+	//剔除用户，用来展示根据配置剔除用户功能
+	rpc logout(logoutRequest) returns (logoutResponse) {}
+	//预留批量剔除接口，用来展示根据配置剔除用户功能
+	rpc batchLogout (batchLogoutRequest) returns (batchLogoutResponse) {}
 }
 
 message helloRequest {
@@ -54,3 +58,20 @@ message verifySTResponse {
 	int32 ret = 1;
 	string msg = 2;
 }
+
+message logoutRequest {
+	string user_id = 1;
+}
+message logoutResponse {
+	int32 ret = 1;
+	string msg = 2;
+}
+
+message batchLogoutRequest {
+	bool allLogout = 1;
+}
+message batchLogoutResponse {
+	int32 ret = 1;
+	string msg = 2;
+}
+

@@ -24,6 +24,8 @@ using login_system::registerRequest;
 using login_system::registerResponse;
 using login_system::loginRequest;
 using login_system::loginResponse;
+using login_system::logoutRequest;
+using login_system::logoutResponse;
 using login_system::LoginSystem;
 
 #define LOGD std::cout 
@@ -192,6 +194,24 @@ class Client {
     }
 
   }
+  void logout(){
+    std::string user_id;
+    std::cout << "please input the user to logout: ";
+    std::cin >> user_id;
+    logoutRequest request;
+    request.set_user_id(user_id);
+    logoutResponse response;
+    ClientContext context;
+    Status status = stub_->logout(&context, request, &response);
+    if (status.ok()) {
+      std::cout << "logout Finish. ret: " << response.ret() << " msg: " << response.msg();
+      return;
+    } else {
+      std::cout << status.error_code() << ": " << status.error_message() << std::endl;
+      return;
+    }
+
+  }
  private:
   std::unique_ptr<LoginSystem::Stub> stub_;
   bool useSSL;
@@ -203,17 +223,17 @@ int main(int argc, char** argv) {
 
   Client client (argc, argv);
 
-  int operation = 2;
-  // std::cout << "input your operation type, 1:[register] 2:[login] 3:[hello] 0:[exit]: ";
-  // std::cin >> operation;
+  int operation = 0;
+  std::cout << "input your operation type, 1:[login] 2:[logout] 3:[hello] 0:[exit]: ";
+  std::cin >> operation;
   switch(operation){
     case 1:
-      std::cout << "register operation" << std::endl;
-      client.registerAccount();
-      break;
-    case 2:
       std::cout << "login operation" << std::endl;
       client.loginAccount();
+      break;
+    case 2:
+      std::cout << "logout operation" << std::endl;
+      client.logout();
       break;
     case 3:
       std::cout << "hello operation" << std::endl;

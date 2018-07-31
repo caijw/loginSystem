@@ -41,6 +41,8 @@ using login_system::loginRequest;
 using login_system::loginResponse;
 using login_system::verifySTRequest;
 using login_system::verifySTResponse;
+using login_system::logoutRequest;
+using login_system::logoutResponse;
 using login_system::LoginSystem;
 
 using bsoncxx::builder::stream::close_document;
@@ -277,6 +279,29 @@ public:
 
     }
     return Status::OK;
+  }
+
+  Status logout(ServerContext* context, const logoutRequest* request,
+                  logoutResponse* response) override{
+    std::string user_id = request->user_id();
+
+    if(user_id.size()){
+      //logout  the login user
+      LoginStreamManager *loginStreamManager = LoginStreamManager::getInstance();
+      int curSeq = loginStreamManager->get(user_id);
+      if(curSeq > 0){
+        loginStreamManager->update(user_id, 0);
+      }
+
+      response->set_ret(0);
+      response->set_msg("ok");
+
+    }else{
+      response->set_ret(-1);
+      response->set_msg("error, invalid user.");
+    }
+    return Status::OK;
+
   }
 
 private:
