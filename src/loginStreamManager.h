@@ -6,7 +6,6 @@
 #include <vector>
 #include <string>
 #include <iostream>
-#include <plog/Log.h> 
 #include <map>
 #include <mutex>
 #include <thread>

@@ -4,7 +4,8 @@
 #include <sstream>
 #include <fstream>
 #include <map>
-#include <grpcpp/grpcpp.h>
+#include <grpc++/grpc++.h>
+
 /*mongodb headers begin*/
 #include <bsoncxx/builder/stream/document.hpp>
 #include <bsoncxx/json.hpp>
@@ -15,8 +16,11 @@
 #include "Database.h"
 #include "util.h"
 #include "crypto_impl.hpp"
-#include "login_system.grpc.pb.h"
-#include <plog/Log.h> 
+
+#include "protos/login_system.pb.h"
+#include "protos/login_system.grpc.pb.h"
+
+// #include <plog/Log.h> 
 #include "loginStreamManager.h"
 #include <chrono>
 #include <thread>
@@ -45,6 +49,8 @@ using bsoncxx::builder::stream::document;
 using bsoncxx::builder::stream::finalize;
 using bsoncxx::type;
 
+#define LOGD std::cout
+
 /*
   secret key between AS and SS,
   hard encoding,this should be maintain carefully.
@@ -57,14 +63,14 @@ public:
   Status hello(ServerContext* context, const helloRequest* request,
                   helloResponse* response) override{
     std::string clientHello = request->helloclient();
-    LOGD<< "receive client hello: " << clientHello;
+    LOGD<< "receive client hello: " << clientHello << std::endl;
     response->set_helloserver("from server");
     return Status::OK;
   }
 
   Status registerAccount(ServerContext* context, const registerRequest* request,
                   registerResponse* response) override {
-    LOGD << "registerAccount";
+    LOGD << "registerAccount" << std::endl;
     crypto::CryptoImpl crypto;
     std::string hash = request->hash();
     std::string nickname = request->nickname();
@@ -72,9 +78,9 @@ public:
     int ret;
     std::string userId;
     ret = user_id::getInstance()->getNewUserId(userId);
-    LOGD << "user_id::getInstance ret:" << ret;
+    LOGD << "user_id::getInstance ret:" << ret << std::endl;
     if(ret == 0){
-      LOGD << "getNewUserId: " << userId;
+      LOGD << "getNewUserId: " << userId << std::endl;
       auto user_info_collection = Database::getInstance()->getCollection("user_info");
       auto doc_builder = bsoncxx::builder::stream::document{};
 
@@ -114,8 +120,8 @@ public:
     crypto::CryptoImpl crypto;
     std::string data = request->data();
     std::string user_id = request->user_id();
-    LOGD << "login account user_id: " << user_id;
-    LOGD << "before dec:" << data;
+    LOGD << "login account user_id: " << user_id << std::endl;
+    LOGD << "before dec:" << data << std::endl;
     auto user_info_collection = Database::getInstance()->getCollection("user_info");
     auto query = document{}
       << "user_id" << user_id
@@ -131,14 +137,14 @@ public:
 
       /*decode req data*/
       data = crypto.AESDec(data, hash);
-      LOGD << "after dec:" << data;
+      LOGD << "after dec:" << data << std::endl;
       /*get the user id */
       std::string data_user_id = data.substr(0, 10);
       /*get the timestamp*/
       std::string data_timestamp = data.substr(10, 20);
       /*remove padding x*/
 
-      LOGD << "data_user_id: " << data_user_id << " data_timestamp: " << data_timestamp;
+      LOGD << "data_user_id: " << data_user_id << " data_timestamp: " << data_timestamp << std::endl;
 
       data_user_id = crypto.deStringWithFixedLength(data_user_id, "x");
       data_timestamp = crypto.deStringWithFixedLength(data_timestamp, "x");
@@ -151,7 +157,7 @@ public:
         responseWriter->Write(response);
        }else{
         int seq = iter_seq->get_int32().value;
-        LOGD << "cur seq:" << seq;
+        LOGD << "cur seq:" << seq << std::endl;
         std::string tmp_user_id = user_id;
         std::string timestamp = std::to_string(currentTimeSecond());
         std::string nextSeq = std::to_string(seq + 1);
@@ -211,7 +217,7 @@ public:
         }
       }
     }else{
-      LOGD << "not found user id: " << user_id;
+      LOGD << "not found user id: " << user_id << std::endl;
       response.set_ret(-3);
       response.set_msg("error, account not exist.");
       response.set_st("");
@@ -226,7 +232,7 @@ public:
     crypto::CryptoImpl crypto;
     std::string user_id = request->user_id();
     std::string ST = request->st();
-    LOGD << "user_id: " << user_id;
+    LOGD << "user_id: " << user_id << std::endl;
     ST = crypto.AESDec(ST, K_AS_SS);
     std::string ST_user_id = ST.substr(0, 10);
     std::string ST_timestamp = ST.substr(0, 10);
@@ -241,7 +247,7 @@ public:
     int seq = std::stoi(ST_seq);
     LOGD << "ST_user_id: " << ST_user_id
       << " ST_timestamp: " << ST_timestamp
-      << " ST_seq: " << ST_seq;
+      << " ST_seq: " << ST_seq << std::endl;
     if(user_id != ST_user_id){
       response->set_ret(-4);
       response->set_msg("error, userId invalid.");
@@ -255,7 +261,7 @@ public:
         auto find_view = find_ret->view();
         auto iter_seq = find_view.find("seq");
         int cur_seq = iter_seq->get_int32().value;
-        LOGD << "cur seq:" << seq;
+        LOGD << "cur seq:" << seq << std::endl;
         if(seq != cur_seq){
           response->set_ret(-6);
           response->set_msg("user not yet login.");
@@ -288,7 +294,7 @@ void RunServer(int argc, char** argv) {
   ServerBuilder builder;
 
   if(useSSL){
-    LOGD << "use SSL";
+    LOGD << "use SSL" << std::endl;
     std::string key;
     std::string cert;
     std::string root;
@@ -302,7 +308,7 @@ void RunServer(int argc, char** argv) {
     sslOps.pem_key_cert_pairs.push_back ( keycert );
     builder.AddListeningPort(server_address, grpc::SslServerCredentials( sslOps ));
   }else{
-    LOGD << "not use SSL";
+    LOGD << "not use SSL" << std::endl;
     builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
 
   }
@@ -320,8 +326,7 @@ void RunServer(int argc, char** argv) {
 }
 
 int main(int argc, char** argv) {
-  /*init logger*/
-  plog::init(plog::debug, "./server_log.log");
+
   /*init database*/
   Database::getInstance()->setDb("mongodb://localhost:27017", "login_system");
 

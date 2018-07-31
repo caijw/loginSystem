@@ -8,7 +8,7 @@
 #include <string>
 #include "Database.h"
 #include <iostream>
-#include <plog/Log.h> 
+// #include <plog/Log.h> 
 class user_id
 {
 public:
