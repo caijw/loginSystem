@@ -8,8 +8,6 @@ out/*
 #log file
 log/*
 *.log
-#deps
-deps/*
 #bazel
 bazel-*
 bazel-*/
