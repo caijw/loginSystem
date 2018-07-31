@@ -17,12 +17,12 @@
 		45B2896721089DC900439499 /* RegisterVCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B2896121089DC800439499 /* RegisterVCViewController.m */; };
 		45B2896821089DC900439499 /* LoginVCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B2896321089DC900439499 /* LoginVCViewController.m */; };
 		45B2896921089DC900439499 /* XLBasePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B2896421089DC900439499 /* XLBasePageController.m */; };
-		45B2897421089F0800439499 /* LSSCrypto+Private.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B2897321089F0800439499 /* LSSCrypto+Private.mm */; };
-		45B2897B21089F2F00439499 /* DJIError.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B2897521089F2F00439499 /* DJIError.mm */; };
-		45B2897C21089F2F00439499 /* DJIProxyCaches.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B2897721089F2F00439499 /* DJIProxyCaches.mm */; };
 		45B289842108A00200439499 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B289832108A00200439499 /* main.m */; };
 		45B2898A2108A09700439499 /* crypto_impl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B289892108A09700439499 /* crypto_impl.cpp */; };
 		45B2898D2108A8C100439499 /* crypto_impl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B289892108A09700439499 /* crypto_impl.cpp */; };
+		45D376452110AA9500AC0EF0 /* DJIProxyCaches.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45D3763F2110AA9500AC0EF0 /* DJIProxyCaches.mm */; };
+		45D376462110AA9500AC0EF0 /* DJIError.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45D376402110AA9500AC0EF0 /* DJIError.mm */; };
+		45D3764A2110AAB300AC0EF0 /* LSSCrypto+Private.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45D376492110AAB300AC0EF0 /* LSSCrypto+Private.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -55,20 +55,20 @@
 		45B2896321089DC900439499 /* LoginVCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVCViewController.m; sourceTree = "<group>"; };
 		45B2896421089DC900439499 /* XLBasePageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLBasePageController.m; sourceTree = "<group>"; };
 		45B2896521089DC900439499 /* XLBasePageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLBasePageController.h; sourceTree = "<group>"; };
-		45B2897121089F0800439499 /* LSSCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSSCrypto.h; path = "../../../djinni/generated-src/objc/LSSCrypto.h"; sourceTree = "<group>"; };
-		45B2897221089F0800439499 /* LSSCrypto+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "LSSCrypto+Private.h"; path = "../../../djinni/generated-src/objc/LSSCrypto+Private.h"; sourceTree = "<group>"; };
-		45B2897321089F0800439499 /* LSSCrypto+Private.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "LSSCrypto+Private.mm"; path = "../../../djinni/generated-src/objc/LSSCrypto+Private.mm"; sourceTree = "<group>"; };
-		45B2897521089F2F00439499 /* DJIError.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = DJIError.mm; path = "../../../deps/djinni/support-lib/objc/DJIError.mm"; sourceTree = "<group>"; };
-		45B2897621089F2F00439499 /* DJIMarshal+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DJIMarshal+Private.h"; path = "../../../deps/djinni/support-lib/objc/DJIMarshal+Private.h"; sourceTree = "<group>"; };
-		45B2897721089F2F00439499 /* DJIProxyCaches.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = DJIProxyCaches.mm; path = "../../../deps/djinni/support-lib/objc/DJIProxyCaches.mm"; sourceTree = "<group>"; };
-		45B2897821089F2F00439499 /* DJIError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DJIError.h; path = "../../../deps/djinni/support-lib/objc/DJIError.h"; sourceTree = "<group>"; };
-		45B2897921089F2F00439499 /* DJICppWrapperCache+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DJICppWrapperCache+Private.h"; path = "../../../deps/djinni/support-lib/objc/DJICppWrapperCache+Private.h"; sourceTree = "<group>"; };
-		45B2897A21089F2F00439499 /* DJIObjcWrapperCache+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DJIObjcWrapperCache+Private.h"; path = "../../../deps/djinni/support-lib/objc/DJIObjcWrapperCache+Private.h"; sourceTree = "<group>"; };
 		45B289812108A00200439499 /* login_client_cpp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = login_client_cpp; sourceTree = BUILT_PRODUCTS_DIR; };
 		45B289832108A00200439499 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		45B289882108A09700439499 /* crypto_impl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = crypto_impl.hpp; path = ../../src/crypto_impl.hpp; sourceTree = "<group>"; };
 		45B289892108A09700439499 /* crypto_impl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = crypto_impl.cpp; path = ../../src/crypto_impl.cpp; sourceTree = "<group>"; };
 		45B2898B2108A0A200439499 /* crypto.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = crypto.hpp; path = "../../djinni/generated-src/cpp/crypto.hpp"; sourceTree = "<group>"; };
+		45D3763F2110AA9500AC0EF0 /* DJIProxyCaches.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = DJIProxyCaches.mm; path = "../../../deps/djinni/support-lib/objc/DJIProxyCaches.mm"; sourceTree = "<group>"; };
+		45D376402110AA9500AC0EF0 /* DJIError.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = DJIError.mm; path = "../../../deps/djinni/support-lib/objc/DJIError.mm"; sourceTree = "<group>"; };
+		45D376412110AA9500AC0EF0 /* DJIError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DJIError.h; path = "../../../deps/djinni/support-lib/objc/DJIError.h"; sourceTree = "<group>"; };
+		45D376422110AA9500AC0EF0 /* DJICppWrapperCache+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DJICppWrapperCache+Private.h"; path = "../../../deps/djinni/support-lib/objc/DJICppWrapperCache+Private.h"; sourceTree = "<group>"; };
+		45D376432110AA9500AC0EF0 /* DJIMarshal+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DJIMarshal+Private.h"; path = "../../../deps/djinni/support-lib/objc/DJIMarshal+Private.h"; sourceTree = "<group>"; };
+		45D376442110AA9500AC0EF0 /* DJIObjcWrapperCache+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DJIObjcWrapperCache+Private.h"; path = "../../../deps/djinni/support-lib/objc/DJIObjcWrapperCache+Private.h"; sourceTree = "<group>"; };
+		45D376472110AAB300AC0EF0 /* LSSCrypto+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "LSSCrypto+Private.h"; path = "../../../djinni/generated-src/objc/LSSCrypto+Private.h"; sourceTree = "<group>"; };
+		45D376482110AAB300AC0EF0 /* LSSCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSSCrypto.h; path = "../../../djinni/generated-src/objc/LSSCrypto.h"; sourceTree = "<group>"; };
+		45D376492110AAB300AC0EF0 /* LSSCrypto+Private.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "LSSCrypto+Private.mm"; path = "../../../djinni/generated-src/objc/LSSCrypto+Private.mm"; sourceTree = "<group>"; };
 		4EFB8BF08261A251F4FC3DF4 /* libPods-login_client_ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-login_client_ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4568021E1594E0C76EDDC6E /* Pods-login_client_ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-login_client_ios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-login_client_ios/Pods-login_client_ios.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -92,6 +92,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		459BCC4B2110A5E300088BC4 /* Bridge */ = {
+			isa = PBXGroup;
+			children = (
+				45D376482110AAB300AC0EF0 /* LSSCrypto.h */,
+				45D376472110AAB300AC0EF0 /* LSSCrypto+Private.h */,
+				45D376492110AAB300AC0EF0 /* LSSCrypto+Private.mm */,
+			);
+			path = Bridge;
+			sourceTree = "<group>";
+		};
+		459BCC5C2110A70700088BC4 /* Djinni */ = {
+			isa = PBXGroup;
+			children = (
+				45D376422110AA9500AC0EF0 /* DJICppWrapperCache+Private.h */,
+				45D376412110AA9500AC0EF0 /* DJIError.h */,
+				45D376402110AA9500AC0EF0 /* DJIError.mm */,
+				45D376432110AA9500AC0EF0 /* DJIMarshal+Private.h */,
+				45D376442110AA9500AC0EF0 /* DJIObjcWrapperCache+Private.h */,
+				45D3763F2110AA9500AC0EF0 /* DJIProxyCaches.mm */,
+			);
+			path = Djinni;
+			sourceTree = "<group>";
+		};
 		45B2893D21089D2600439499 = {
 			isa = PBXGroup;
 			children = (
@@ -115,8 +138,8 @@
 		45B2894821089D2600439499 /* login_client_ios */ = {
 			isa = PBXGroup;
 			children = (
-				45B2896B21089E3D00439499 /* Bridge */,
-				45B2896A21089E3100439499 /* Djinni */,
+				459BCC5C2110A70700088BC4 /* Djinni */,
+				459BCC4B2110A5E300088BC4 /* Bridge */,
 				45B2896221089DC900439499 /* LoginVCViewController.h */,
 				45B2896321089DC900439499 /* LoginVCViewController.m */,
 				45B2895F21089DC800439499 /* main.mm */,
@@ -134,29 +157,6 @@
 				45B2895721089D2800439499 /* Info.plist */,
 			);
 			path = login_client_ios;
-			sourceTree = "<group>";
-		};
-		45B2896A21089E3100439499 /* Djinni */ = {
-			isa = PBXGroup;
-			children = (
-				45B2897921089F2F00439499 /* DJICppWrapperCache+Private.h */,
-				45B2897821089F2F00439499 /* DJIError.h */,
-				45B2897521089F2F00439499 /* DJIError.mm */,
-				45B2897621089F2F00439499 /* DJIMarshal+Private.h */,
-				45B2897A21089F2F00439499 /* DJIObjcWrapperCache+Private.h */,
-				45B2897721089F2F00439499 /* DJIProxyCaches.mm */,
-			);
-			path = Djinni;
-			sourceTree = "<group>";
-		};
-		45B2896B21089E3D00439499 /* Bridge */ = {
-			isa = PBXGroup;
-			children = (
-				45B2897121089F0800439499 /* LSSCrypto.h */,
-				45B2897221089F0800439499 /* LSSCrypto+Private.h */,
-				45B2897321089F0800439499 /* LSSCrypto+Private.mm */,
-			);
-			path = Bridge;
 			sourceTree = "<group>";
 		};
 		45B289822108A00200439499 /* login_client_cpp */ = {
@@ -321,12 +321,12 @@
 			files = (
 				45B2896921089DC900439499 /* XLBasePageController.m in Sources */,
 				45B2896621089DC900439499 /* main.mm in Sources */,
+				45D376452110AA9500AC0EF0 /* DJIProxyCaches.mm in Sources */,
 				45B2898D2108A8C100439499 /* crypto_impl.cpp in Sources */,
 				45B2894E21089D2600439499 /* ViewController.m in Sources */,
 				45B2896821089DC900439499 /* LoginVCViewController.m in Sources */,
-				45B2897B21089F2F00439499 /* DJIError.mm in Sources */,
-				45B2897C21089F2F00439499 /* DJIProxyCaches.mm in Sources */,
-				45B2897421089F0800439499 /* LSSCrypto+Private.mm in Sources */,
+				45D376462110AA9500AC0EF0 /* DJIError.mm in Sources */,
+				45D3764A2110AAB300AC0EF0 /* LSSCrypto+Private.mm in Sources */,
 				45B2894B21089D2600439499 /* AppDelegate.m in Sources */,
 				45B2896721089DC900439499 /* RegisterVCViewController.m in Sources */,
 			);
