@@ -20,7 +20,7 @@ cd ${mongo_c_driver_path}
 git checkout 1.12.0
 mkdir cmake-build
 cd cmake-build
-cmake -DENABLE_AUTOMATIC_INIT_AND_CLEANUP=OFF ..
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=./libs/mongod-c ..
 make
 sudo make install
 cd ${root_folder}
@@ -32,7 +32,7 @@ cd ${root_folder}
 
 #fi
 cd ${mongo_cxx_driver_path}"/build"
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local ..
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=./libs/mongod-cxx ..
 sudo make EP_mnmlstc_core
 make
 sudo make install

@@ -1,0 +1,11 @@
+prefix=/Users/jingweicai/Documents/code/node_modules/node_modules/loginSystem/deps/mongo-c-driver/out
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${exec_prefix}/include
+
+Name: libmongoc
+Description: The libmongoc MongoDB client library.
+Version: 1.12.0
+Requires: libbson-static-1.0
+Libs: -L${libdir} -lmongoc-static-1.0  -L/usr/lib -lsasl2 -framework CoreFoundation -framework Security -lresolv -L/usr/lib -lz
+Cflags: -I${includedir}/libmongoc-1.0 -DMONGOC_STATIC
