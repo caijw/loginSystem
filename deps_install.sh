@@ -20,9 +20,14 @@ cd ${mongo_c_driver_path}
 git checkout 1.12.0
 mkdir cmake-build
 cd cmake-build
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=./libs/mongod-c ..
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=out ..
 make
 sudo make install
+cd ..
+sudo cp  -r ./out/include ../../libs/mongod-c 
+sudo cp  -r ./out/lib ../../libs/mongod-c 
+
+
 cd ${root_folder}
 
 #install mongo-cxx-driver
@@ -32,11 +37,17 @@ cd ${root_folder}
 
 #fi
 cd ${mongo_cxx_driver_path}"/build"
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=./libs/mongod-cxx ..
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=out ..
 sudo make EP_mnmlstc_core
 make
 sudo make install
+cd ..
+sudo cp  -r ./out/include ../../libs/mongod-cxx 
+sudo cp  -r ./out/lib ../../libs/mongod-cxx
+
 cd ${root_folder}
+
+
 
 #install djinni
 #if [ ! -d ${djinni_path} ]; then
