@@ -32,7 +32,6 @@ cc_library(
   name = "loginStreamManager",
   srcs = ["loginStreamManager.cpp"],
   hdrs = ["loginStreamManager.h"],
-  copts = ["-I/usr/include", "-I/usr/local/include"],
 )
 
 cc_library(
@@ -72,10 +71,12 @@ cc_binary(
   srcs = ['server.cpp'],
   deps = [
     "//protos:login_system_proto", 
-    "util", "crypto_impl", 
+    "util",
+    "crypto_impl", 
     "Database", 
     "loginStreamManager", 
-    "user_id","//libs/mongod-cxx:bson-cxx", 
+    "user_id",
+    "//libs/mongod-cxx:bson-cxx", 
     "//libs/mongod-cxx:mongoc-cxx"
   ] + GRPC_COMPILE_DEPS,
   copts = [
